@@ -1,6 +1,7 @@
 #Ignore cached files.
 .gradle/
 build/
+bin/
 #Minecraft game data
 eclipse/
 
