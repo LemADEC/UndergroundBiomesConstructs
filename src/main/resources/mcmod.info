@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
+  "modid": "UndergroundBiomes",
+  "name": "Underground Biomes Constructs",
+  "description": "24 different kinds of stones with slabs, stairs, walls, and buttons",
+  "version": "1.0.1",
+  "mcversion": "1.7.10",
+  "url": "http://tinyurl.com/qceqq4g",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authors": "Zeno410, Gyro",
+  "credits": "Zeno410",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
