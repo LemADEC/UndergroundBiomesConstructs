@@ -91,7 +91,7 @@ public class DimensionManager {
         if (result == null) {
             // hasn't been made yet; make and store it
             oreUBifier.renewBlockReplacers();
-            result = new WorldGenManager(dimensionSeed(dimension),dimension,oreUBifier,biomeSet());
+            result = new WorldGenManager(dimensionSeed(dimension),dimension,oreUBifier,biomeSet()); //TODO: Exception here.
             worldGenManagers.put(dimension, result);
         }
         return result;

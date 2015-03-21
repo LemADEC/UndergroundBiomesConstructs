@@ -23,7 +23,7 @@ import exterminatorJeff.undergroundBiomes.common.UndergroundBiomes;
 import Zeno410Utils.Acceptor;
 import Zeno410Utils.Zeno410Logger;
 
-import clickme.nocubes.NoCubes;
+//import clickme.nocubes.NoCubes;
 
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
 import java.util.logging.Logger;
@@ -62,11 +62,11 @@ public abstract class BlockMetadataBase extends BlockStone {
         this.setBlockName(block.internal());
         this.setCreativeTab(UndergroundBiomes.tabModBlocks);
         namer = block;
-        try {
-            renderID = NoCubes.renderId;
-        } catch (java.lang.NoClassDefFoundError e) {
+        //try {
+        //    renderID = NoCubes.renderId;
+        //} catch (java.lang.NoClassDefFoundError e) {
             renderID = super.getRenderType();
-        }
+        //}
         UndergroundBiomes.instance().settings().hardnessModifier.informOnChange(this.hardnessUpdater);
         UndergroundBiomes.instance().settings().resistanceModifier.informOnChange(this.resistanceUpdater);
 

@@ -20,15 +20,15 @@ import exterminatorJeff.undergroundBiomes.common.WorldGenManager;
 
 import exterminatorJeff.undergroundBiomes.api.NamedVanillaBlock;
 import exterminatorJeff.undergroundBiomes.common.block.BlockMetadataBase;
-import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBBadlands;
-import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBCliffs;
-import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBDesertMountains;
-import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBRockMountains;
-import highlands.biome.BiomeDecoratorHighlands;
-import highlands.biome.BiomeGenBadlands;
-import highlands.biome.BiomeGenCliffs;
-import highlands.biome.BiomeGenDesertMountains;
-import highlands.biome.BiomeGenRockMountains;
+//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBBadlands;
+//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBCliffs;
+//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBDesertMountains;
+//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBRockMountains;
+//import highlands.biome.BiomeDecoratorHighlands;
+//import highlands.biome.BiomeGenBadlands;
+//import highlands.biome.BiomeGenCliffs;
+//import highlands.biome.BiomeGenDesertMountains;
+//import highlands.biome.BiomeGenRockMountains;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import net.minecraft.world.biome.BiomeDecorator;
@@ -79,7 +79,7 @@ public class BiomeUndergroundDecorator {
     public BiomeUndergroundDecorator(WorldGenManager worldGen,OreUBifier oreUBifier) {
         this.worldGen = worldGen;
         this.oreUBifier = oreUBifier;
-        arrangeHighlandsCompatibility();
+        //arrangeHighlandsCompatibility();
         setupCorrectors();
         correctBiomeDecorators();
     }
@@ -398,11 +398,11 @@ public class BiomeUndergroundDecorator {
 
     private void setupCorrectors() {
         this.correctors.add(new VanillaDecoratorCorrector());
-        try {
+        /*try {
             this.correctors.add(new HighlandsDecoratorCorrector());
         } catch (java.lang.NoClassDefFoundError e) {
             // no Highlands; nothing to do;
-        }
+        }*/
 
     }
 
@@ -416,7 +416,7 @@ public class BiomeUndergroundDecorator {
             return currentDecorator;
         }
     }
-
+/*
     private class HighlandsDecoratorCorrector implements BiomeDecoratorCorrector {
         Class standardDecoratorClass = BiomeDecoratorHighlands.class;
 
@@ -454,7 +454,7 @@ public class BiomeUndergroundDecorator {
         } catch (java.lang.NoClassDefFoundError e) {
         }
 
-    }
+    }*/
 }
 
 

@@ -12,7 +12,6 @@ import net.minecraft.world.gen.layer.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-
 import Zeno410Utils.PlaneLocation;
 import Zeno410Utils.Accessor;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeGenUndergroundBase;
@@ -24,13 +23,15 @@ import net.minecraftforge.event.terraingen.BiomeEvent.GetVillageBlockMeta;
 import exterminatorJeff.undergroundBiomes.worldGen.UBChunkProvider;
 import exterminatorJeff.undergroundBiomes.worldGen.UndergroundBiomeSet;
 import exterminatorJeff.undergroundBiomes.worldGen.VillageStoneChanger;
-
-
 import Zeno410Utils.Zeno410Logger;
 import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
-import java.util.logging.Logger;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.lang.reflect.*;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
 public class WorldGenManager {
@@ -50,11 +51,11 @@ public class WorldGenManager {
     private final BiomeUndergroundDecorator villageStoneSource;
 
     private AccessChunkProvider accessChunkProvider = new AccessChunkProvider();
-
+    
     private AccessChunkProviderServer accessChunkProviderServer = new AccessChunkProviderServer();
 
     private Accessor<ChunkProviderServer,IChunkProvider> providerFromChunkServer =
-            new Accessor<ChunkProviderServer,IChunkProvider>("field_73246_d");
+            new Accessor<ChunkProviderServer,IChunkProvider>(IChunkProvider.class);
 
     private long seed;
 
@@ -248,7 +249,7 @@ public class WorldGenManager {
     public boolean chunkExists(int x,int z) {
         return chunkProvider.chunkExists(x, z);
     }
-
+    
     public IChunkProvider servedChunkProvider(WorldServer world) {
         return providerFromChunkServer.get(accessChunkProviderServer.chunkProviderServer(world));
     }
@@ -268,7 +269,7 @@ public class WorldGenManager {
             }
         }
     }
-
+    
     public void setServedChunkProvider(WorldServer world) {
         if (this.ubOn() == false) return;
         ChunkProviderServer currentServer = this.accessChunkProviderServer.chunkProviderServer(world);
@@ -300,15 +301,17 @@ public class WorldGenManager {
 
         }
         private void setIChunkProviderField() throws IllegalAccessException{
+        	//TODO: Exception here.
             Field [] fields = World.class.getDeclaredFields();
             for (int i = 0; i < fields.length;i ++) {
-                if (fields[i].getName().contains("field_73020_y")) {
+            	//Better than relying on the shifting sands of obfuscated names.
+                if (IChunkProvider.class.isAssignableFrom(fields[i].getType())) {
                     iChunkProviderField = fields[i];
                     iChunkProviderField.setAccessible(true);
                     return;
                 }
             }
-            throw new RuntimeException();
+            throw new RuntimeException("IChunkProvider field not found.");
         }
 
         public IChunkProvider iChunkProvider(World world) {
@@ -337,8 +340,7 @@ public class WorldGenManager {
             }
         }
     }
-    //
-
+    
     static class AccessChunkProviderServer{
         Field iChunkProviderServerField;
         AccessChunkProviderServer() {
@@ -351,11 +353,14 @@ public class WorldGenManager {
         private void setIChunkProviderField() throws IllegalAccessException{
             Field [] fields = WorldServer.class.getDeclaredFields();
             for (int i = 0; i < fields.length;i ++) {
-                if (fields[i].getName().contains("field_73059_b")) {
+            	logger.log(Level.FINEST,"WorldServer field #" + i + " is a " + fields[i].getType().getName(), false);
+                if (fields[i].getType() == ChunkProviderServer.class) {
                     iChunkProviderServerField = fields[i];
                     iChunkProviderServerField.setAccessible(true);
+                    return;
                 }
             }
+            throw new RuntimeException("ChunkProviderServer field not found.");
         }
 
         public ChunkProviderServer chunkProviderServer(WorldServer world) {
@@ -391,7 +396,7 @@ public class WorldGenManager {
             //logger.info( "fieldcount "+fields.length);
             for (int i = 0; i < fields.length;i ++) {
                 //logger.info( fields[i].getName());
-                if (fields[i].getName().contains("field_75909_a")) {
+                if (GenLayer.class.isAssignableFrom(fields[i].getClass())) {
                     parentField.setAccessible(true);
                 }
             }

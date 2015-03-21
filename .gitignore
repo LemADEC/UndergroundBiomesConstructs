@@ -1,4 +1,10 @@
-#All credit to the authors of https://github.com/github/gitignore/blob/557c62cd54524fe6f7559cab042d91553bb0755e/Java.gitignore . Thanks guys!
+#Ignore cached files.
+.gradle/
+build/
+#Minecraft game data
+eclipse/
+
+#All credit for the following to the authors of https://github.com/github/gitignore/blob/557c62cd54524fe6f7559cab042d91553bb0755e/Java.gitignore . Thanks guys!
 
 *.class
 # Mobile Tools for Java (J2ME)

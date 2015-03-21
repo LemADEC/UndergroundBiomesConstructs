@@ -41,4 +41,11 @@ public class ShamWorld extends World {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+
+	@Override
+	protected int func_152379_p() {
+		// Render distance in chunks.
+		return 0;
+	}
+
 }

@@ -3,13 +3,17 @@ package exterminatorJeff.undergroundBiomes.common;
 
 import Zeno410Utils.MinecraftName;
 import Zeno410Utils.Zeno410Logger;
-import com.teammetallurgy.metallurgy.metals.MetalBlock;
+//import com.teammetallurgy.metallurgy.metals.MetalBlock;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
 import exterminatorJeff.undergroundBiomes.api.UBOreTexturizer;
+
 import java.util.HashSet;
 import java.util.logging.Logger;
+
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
@@ -124,10 +128,10 @@ public class OreUBifyRequester implements UBOreTexturizer {
     public void redoOres(int x, int z, World world) {
         UndergroundBiomes.instance().redoOres(x, z, world);
     }
-
     private static MinecraftName minecraftName(Block block, int meta) {
-        if (block instanceof MetalBlock) {
-            return new MinecraftName(((MetalBlock)block).getUnlocalizedName(meta));
+        if (ItemBlock.getItemFromBlock(block) != null) {
+        	//Wasteful allocation. Not sure how else to do this, though.
+            return new MinecraftName((new ItemStack(ItemBlock.getItemFromBlock(block), 1, meta)).getUnlocalizedName());
         }
         throw new RuntimeException();
     }

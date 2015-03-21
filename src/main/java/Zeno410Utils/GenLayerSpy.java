@@ -22,7 +22,7 @@ public class GenLayerSpy extends GenLayer {
             //logger.info( "fieldcount "+fields.length);
             for (int i = 0; i < fields.length;i ++) {
                 //logger.info( fields[i].getName());
-                if (fields[i].getName().contains("field_75909_a")) {
+                if (GenLayer.class.isAssignableFrom(fields[i].getClass())) {
                     parentField = fields[i];
                     parentField.setAccessible(true);
                 }
