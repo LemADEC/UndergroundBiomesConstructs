@@ -301,7 +301,6 @@ public class WorldGenManager {
 
         }
         private void setIChunkProviderField() throws IllegalAccessException{
-        	//TODO: Exception here.
             Field [] fields = World.class.getDeclaredFields();
             for (int i = 0; i < fields.length;i ++) {
             	//Better than relying on the shifting sands of obfuscated names.
