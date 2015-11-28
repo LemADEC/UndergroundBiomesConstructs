@@ -188,7 +188,9 @@ public class BlockUBOre extends Block {
         }
         return new ItemStack(item, 1, getDamageValue(world, x, y, z));
     }
-    public int damageDropped(int metadata){
+    
+    @Override
+	public int damageDropped(int metadata){
         return metadata;
     }
    
