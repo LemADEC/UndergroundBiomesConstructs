@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-0.8-gyro-exp-1.0-Lem"
+version = "1.7.10-0.8-gyro-exp-1.1-Lem"
 group= "exterminatorJeff.undergroundBiomes" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "undergroundBiomes"
 
