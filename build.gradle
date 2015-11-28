@@ -21,8 +21,11 @@ version = "1.7.10-0.8-gyro-exp"
 group= "exterminatorJeff.undergroundBiomes" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "undergroundBiomes"
 
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
 minecraft {
-    version = "1.7.10-10.13.2.1340-1.7.10"
+    version = "1.7.10-10.13.4.1492-1.7.10"
     runDir = "eclipse"
 }
 
