@@ -343,6 +343,7 @@ public class UndergroundBiomes{
         oreUBifier.setupUBOre(Blocks.lapis_ore,UBOreTexturizer.lapis_overlay, event);
         oreUBifier.setupUBOre(Blocks.emerald_ore,UBOreTexturizer.emerald_overlay, event);
         oreUBifier.setupUBOre(Blocks.gold_ore,UBOreTexturizer.gold_overlay, event);
+        oreUBifier.setupUBHidden(Blocks.monster_egg, event);
 
         oreRequester.fulfillRequests(event);
 

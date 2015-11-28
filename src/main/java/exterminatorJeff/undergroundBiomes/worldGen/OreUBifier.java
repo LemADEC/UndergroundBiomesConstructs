@@ -9,7 +9,9 @@ import exterminatorJeff.undergroundBiomes.client.RenderUBOre;
 import exterminatorJeff.undergroundBiomes.common.UndergroundBiomes;
 import exterminatorJeff.undergroundBiomes.common.block.BlockMetadataBase;
 import exterminatorJeff.undergroundBiomes.common.block.BlockOverlay;
+import exterminatorJeff.undergroundBiomes.common.block.BlockUBHidden;
 import exterminatorJeff.undergroundBiomes.common.block.BlockUBOre;
+import exterminatorJeff.undergroundBiomes.common.item.ItemUBHiddenBlock;
 import exterminatorJeff.undergroundBiomes.common.item.ItemUBOreBlock;
 import Zeno410Utils.Acceptor;
 import Zeno410Utils.ConcreteMutable;
@@ -19,10 +21,12 @@ import Zeno410Utils.MinecraftName;
 import Zeno410Utils.Mutable;
 import Zeno410Utils.Zeno410Logger;
 import exterminatorJeff.undergroundBiomes.common.block.BlockUBMetadataOre;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -48,7 +52,8 @@ public final class OreUBifier {
 
     private ConcreteMutable<Integer> renderID = new ConcreteMutable<Integer>();
     private Acceptor<Boolean> updateReplacement = new Acceptor<Boolean>() {
-        public void accept(Boolean accepted) {
+        @Override
+		public void accept(Boolean accepted) {
             replacementActive = accepted;
         }
     };
@@ -58,6 +63,15 @@ public final class OreUBifier {
         this.replacementActive = replacementFlag.value();
         // send callback so replacement gets updated if setting change;
         replacementFlag.informOnChange(updateReplacement);
+    }
+
+    public void setupUBHidden(Block oreBlock,FMLPreInitializationEvent event){
+        assert(event != null);
+        registerHiddenBlock(oreBlock,UndergroundBiomes.igneousStone,"igneous");
+        registerHiddenBlock(oreBlock,UndergroundBiomes.metamorphicStone,"metamorphic");
+        registerHiddenBlock(oreBlock,UndergroundBiomes.sedimentaryStone,"sedimentary");
+        replacedOres.setAll(oreBlock);
+        this.replacedBlockClasses.add(oreBlock.getClass());
     }
 
     public void setupUBOre(Block oreBlock, String overlayName, FMLPreInitializationEvent event){
@@ -79,6 +93,21 @@ public final class OreUBifier {
         registerBlockWithMetadata(oreBlock,UndergroundBiomes.sedimentaryStone,"sedimentary",overlayName, metadata,blockName);
     }
 
+    private void registerHiddenBlock(Block oreBlock, BlockMetadataBase ubStone, String rockName) {
+        BlockUBHidden ubOre = new BlockUBHidden(ubStone,oreBlock);
+        NamedBlock namer = new NamedBlock(rockName+"_"+oreBlock.getUnlocalizedName().substring(5));
+        BlockOverlay.logger.info("block "+oreBlock+ " no metadata ");
+        GameRegistry.registerBlock(ubOre, ItemUBHiddenBlock.class, namer.internal());
+        //BlockOverlay.logger.info(namer.internal());
+        // all the metadatas get replaced
+        for (int i = 0; i < 16; i ++) {
+            blockReplacer.item(oreBlock).ubversions[i].set(ubStone, ubOre);
+        }
+        oreFor.put(ubOre, oreBlock);
+        stoneFor.put(ubOre, ubStone);
+        int blockID = Block.getIdFromBlock(ubOre);
+        Item matchedItem = Item.getItemById(blockID);
+    }
 
     private void registerBlock(Block oreBlock, BlockMetadataBase ubStone, String rockName, String overlayName) {
         BlockOverlay overlay = new BlockOverlay(overlayName);
@@ -196,7 +225,7 @@ public final class OreUBifier {
     }
 
     public void registerOres() {
-        String [] oreNames = OreDictionary.getOreNames();
+        // String [] oreNames = OreDictionary.getOreNames();
         for (Block block: this.oreFor.keySet()){
             Block ore = oreFor.get(block);
             try{
@@ -212,12 +241,12 @@ public final class OreUBifier {
     }
 
     private class UBVersions {
-        private final HashMap<BlockMetadataBase,BlockUBOre> converter =
-                new HashMap<BlockMetadataBase,BlockUBOre>();
+        private final HashMap<BlockMetadataBase,Block> converter =
+                new HashMap<BlockMetadataBase,Block>();
         private final HashMap<BlockMetadataBase,ArrayList<BlockState>> convertedBlockStates =
                 new HashMap<BlockMetadataBase,ArrayList<BlockState>>();
 
-        public void set(BlockMetadataBase ubStone, BlockUBOre ubOre) {
+        public void set(BlockMetadataBase ubStone, Block ubOre) {
             converter.put(ubStone, ubOre);
             ArrayList<BlockState> blockStates = new ArrayList<BlockState>();
             for (int i = 0; i < BlockMetadataBase.metadatas; i++) {
@@ -228,7 +257,7 @@ public final class OreUBifier {
 
         public boolean active() {return converter.size()>0;}
 
-        public BlockUBOre ore(BlockMetadataBase stone) {
+        public Block ore(BlockMetadataBase stone) {
             return converter.get(stone);
         }
 
@@ -290,6 +319,7 @@ public final class OreUBifier {
         return this.blockReplacer.item(ore).ubversions[metadata].convertedore(baseStone,stone.metadata);
     }
 
+    /*
     private class MetadataIndexedBlock {
         private Block [] blocks = new Block[16];
         public void set(Block block, int index) {
@@ -298,6 +328,7 @@ public final class OreUBifier {
 
         public Block get(int index) {return blocks[index];}
     }
+    /**/
 
     private class ReplacedOres {
         private HashMap<Block,boolean []> flags = new HashMap<Block,boolean []>();
@@ -345,7 +376,8 @@ public final class OreUBifier {
             this.versions = versions;
         }
 
-        public BlockState replacement(UBStoneCodes stone, UBStoneCodes defaultStone) {
+        @Override
+		public BlockState replacement(UBStoneCodes stone, UBStoneCodes defaultStone) {
             if (stone.block instanceof BlockMetadataBase) {
                 return versions.convertedore((BlockMetadataBase)stone.block, stone.metadata);
             }
@@ -367,7 +399,8 @@ public final class OreUBifier {
             }
         }
 
-        public BlockStateReplacer replacer(int metadata) {
+        @Override
+		public BlockStateReplacer replacer(int metadata) {
             return replacers[metadata];
         }
     }
