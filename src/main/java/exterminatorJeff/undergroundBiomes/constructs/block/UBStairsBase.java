@@ -54,8 +54,9 @@ public class UBStairsBase extends BlockStairs implements ITileEntityProvider{
     @Override
     public boolean hasTileEntity() {return true;}
 
-    public TileEntity createNewTileEntity(World world, int i) {
-        throw new RuntimeException();
+    @Override
+	public TileEntity createNewTileEntity(World world, int i) {
+        return new UndergroundBiomesTileEntity();
     }
 
     @Override

@@ -61,7 +61,7 @@ public class UBWallBase extends BlockWall  implements ITileEntityProvider{
     public boolean hasTileEntity() {return true;}
     
     public TileEntity createNewTileEntity(World world, int i) {
-        throw new RuntimeException();
+        return new UndergroundBiomesTileEntity();
     }
     
     @Override
