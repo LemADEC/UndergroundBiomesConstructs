@@ -86,6 +86,9 @@ public final class UndergroundBiomesSettings extends Settings {
     public final Mutable<Integer> vanillaStoneCrafting = this.general().intSetting(
             "vanillaStoneCrafting", 4, "0 = none; 1 = one rock; 2 = with redstone; 3 = 2x2 stone, lose 3; 4 = 2x2 stone");
 
+    public final Mutable<Boolean> slabOreDictionaryRegistering = this.general().booleanSetting(
+            "slabOreDictionaryRegistering", true, "false = register slabs in ore dictionnary");
+
     public final Mutable<Double>  hardnessModifier = this.general().doubleSetting(
             "hardnessModifier", 1.5, "Increase to make stone longer to mine. Normal is 1.5");
 

@@ -6,6 +6,7 @@ import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
 import exterminatorJeff.undergroundBiomes.api.UBOreTexturizer;
 import exterminatorJeff.undergroundBiomes.api.UBIDs;
 import exterminatorJeff.undergroundBiomes.api.UndergroundBiomesSettings;
+
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
+
 
 
 import net.minecraft.item.Item;
@@ -24,7 +26,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,11 +47,9 @@ import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
 import exterminatorJeff.undergroundBiomes.common.block.*;
 import exterminatorJeff.undergroundBiomes.common.item.*;
 import exterminatorJeff.undergroundBiomes.common.command.*;
-
 import exterminatorJeff.undergroundBiomes.constructs.item.ItemUBStairs;
 import exterminatorJeff.undergroundBiomes.constructs.util.UBCodeLocations;
 import exterminatorJeff.undergroundBiomes.constructs.UndergroundBiomesConstructs;
@@ -58,7 +57,6 @@ import Zeno410Utils.Acceptor;
 import Zeno410Utils.ConfigManager;
 import Zeno410Utils.PlayerDetector;
 import exterminatorJeff.undergroundBiomes.constructs.util.WatchList;
-
 import Zeno410Utils.Zeno410Logger;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.registry.GameData;
@@ -66,13 +64,14 @@ import exterminatorJeff.undergroundBiomes.client.RenderUBOre;
 import exterminatorJeff.undergroundBiomes.network.PacketPipeline;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
 import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
+
 import java.io.File;
 import java.util.logging.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldServer;
-
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import static java.lang.annotation.ElementType.*;
 
@@ -296,19 +295,19 @@ public class UndergroundBiomes{
         sedimentaryStone = new BlockSedimentaryStone();
         UBIDs.sedimentaryStoneName.gameRegister(sedimentaryStone,ItemMetadataBlock.class);
 
-        igneousBrickSlab = stoneSlabPair(igneousStoneBrick,UBIDs.igneousBrickSlabName);
+        igneousBrickSlab = stoneSlabPair(igneousStoneBrick,UBIDs.igneousBrickSlabName, "slabStoneBricks");
 
-        metamorphicBrickSlab = stoneSlabPair(metamorphicStoneBrick,UBIDs.metamorphicBrickSlabName);
+        metamorphicBrickSlab = stoneSlabPair(metamorphicStoneBrick,UBIDs.metamorphicBrickSlabName, "slabStoneBricks");
         
-        igneousStoneSlab = stoneSlabPair(igneousStone,UBIDs.igneousStoneSlabName);
+        igneousStoneSlab = stoneSlabPair(igneousStone,UBIDs.igneousStoneSlabName, "slabStone");
 
-        metamorphicStoneSlab = stoneSlabPair(metamorphicStone,UBIDs.metamorphicStoneSlabName);
+        metamorphicStoneSlab = stoneSlabPair(metamorphicStone,UBIDs.metamorphicStoneSlabName, "slabStone");
 
-        igneousCobblestoneSlab = stoneSlabPair(igneousCobblestone,UBIDs.igneousCobblestoneSlabName);
+        igneousCobblestoneSlab = stoneSlabPair(igneousCobblestone,UBIDs.igneousCobblestoneSlabName, "slabCobblestone");
 
-        metamorphicCobblestoneSlab = stoneSlabPair(metamorphicCobblestone,UBIDs.metamorphicCobblestoneSlabName);
+        metamorphicCobblestoneSlab = stoneSlabPair(metamorphicCobblestone,UBIDs.metamorphicCobblestoneSlabName, "slabCobblestone");
         
-        sedimentaryStoneSlab = stoneSlabPair(sedimentaryStone,UBIDs.sedimentaryStoneSlabName);
+        sedimentaryStoneSlab = stoneSlabPair(sedimentaryStone,UBIDs.sedimentaryStoneSlabName, "slabStone");
         //items
 
         ligniteCoal = new ItemLigniteCoal(ligniteCoalID());
@@ -354,14 +353,20 @@ public class UndergroundBiomes{
         pipeline= new PacketPipeline();
     }
 
-    public StoneSlabPair stoneSlabPair(BlockMetadataBase material, NamedSlabPair slabPairName) {
-        BlockStoneSlab half = new BlockStoneSlab(false,material,slabPairName);
-        BlockStoneSlab full = new BlockStoneSlab(true,material,slabPairName);
+    public StoneSlabPair stoneSlabPair(BlockMetadataBase material, NamedSlabPair slabPairName, String oreName) {
+        BlockStoneSlab half = new BlockStoneSlab(false, material, slabPairName);
+        BlockStoneSlab full = new BlockStoneSlab(true, material, slabPairName);
 
-        GameRegistry.registerBlock(half,ItemMetadataSlab.class,slabPairName.half.internal(),UBIDs.ubPrefix(),full);
-        GameRegistry.registerBlock(full,ItemMetadataSlab.class,slabPairName.full.internal(),UBIDs.ubPrefix(),half);
+        GameRegistry.registerBlock(half, ItemMetadataSlab.class, slabPairName.half.internal(), UBIDs.ubPrefix(), full);
+        GameRegistry.registerBlock(full, ItemMetadataSlab.class, slabPairName.full.internal(), UBIDs.ubPrefix(), half);
 
-        return new StoneSlabPair(half,full);
+        if (instance().settings.slabOreDictionaryRegistering.value()) {
+	        for (int i = 0; i < 8; i++){
+	            OreDictionary.registerOre(oreName, new ItemStack(half, 1, i));
+	        }
+        }
+
+        return new StoneSlabPair(half, full);
     }
 
     @EventHandler
@@ -375,8 +380,6 @@ public class UndergroundBiomes{
         addOreDicts();
         addRecipes();
         constructs.load(event);
-
-
     }
     
     @EventHandler
@@ -448,14 +451,12 @@ public class UndergroundBiomes{
         for (Object key: Block.blockRegistry.getKeys()) {
             String name = (String) key;
             Block named = Block.getBlockFromName(name);
-            int id = Block.getIdFromBlock(named);
-            //logger.info(name + " "+id);
+            Block.getIdFromBlock(named);
         }
         for (Object key: Item.itemRegistry.getKeys()) {
             String name = (String) key;
             Item named = (Item)(Item.itemRegistry.getObject(name));
-            int id = Item.getIdFromItem(named);
-            //logger.info(name + " "+id);
+            Item.getIdFromItem(named);
         }
         if (runningConfigIDs) {
             //defaultIDSetter.redoAsNeeded();
@@ -674,7 +675,7 @@ public class UndergroundBiomes{
                 ShapedRecipes recipe = (ShapedRecipes)obj;
                 if (containsMatch(true, recipe.recipeItems, replaceStacks))
                 {
-                    recipes.set(i, (ShapedOreRecipe)shapedConstr.newInstance(recipe, replacements));
+                    recipes.set(i, shapedConstr.newInstance(recipe, replacements));
                     numReplaced++;
                     System.out.println("Changed shaped recipe for " + output.getDisplayName());
                 }
@@ -684,7 +685,7 @@ public class UndergroundBiomes{
                 ShapelessRecipes recipe = (ShapelessRecipes)obj;
                 if (containsMatch(true, (ItemStack[])recipe.recipeItems.toArray(new ItemStack[recipe.recipeItems.size()]), replaceStacks))
                 {
-                    recipes.set(i, (ShapelessOreRecipe)shapelessConstr.newInstance(recipe, replacements));
+                    recipes.set(i, shapelessConstr.newInstance(recipe, replacements));
                     numReplaced++;
                     System.out.println("Changed shapeless recipe for " + output.getDisplayName());
                 }
@@ -828,8 +829,8 @@ public class UndergroundBiomes{
         }
     }
 
-    public void redoOres(int x, int z, World world) {
-        dimensionManager.redoOres(x, z, world);
+    public void redoOres(int x, int z, World worldObj) {
+        dimensionManager.redoOres(x, z, worldObj);
     }
 
     public static String oreStoneName() {
