@@ -61,20 +61,20 @@ public class ConfigManager<Type extends Settings> {
 
     public void setWorldFile(File newFile) {
         // this is the world save directory
-        String configDirectoryName = newFile.getAbsoluteFile()+File.separator+CONFIG_DIRECTORY;
+        // String configDirectoryName = newFile.getAbsoluteFile()+File.separator+CONFIG_DIRECTORY;
         File configDirectory = new File(newFile,CONFIG_DIRECTORY);
         configDirectory.mkdir();
 
         String configName = generalConfigFile.getPath();
         String generalConfigDirectoryName = generalConfigFile.getParentFile().getPath();
         String detailName = configName.substring(generalConfigDirectoryName.length()+1);
-        logger.info("Filename "+detailName);
+        logger.info("Filename " + detailName);
         File localConfigFile = new File(configDirectory,detailName);
         setWorldConfigFile(localConfigFile);
     }
 
     public String lastFile(String multipath) {
         String [] parts = multipath.split(File.separator);
-        return parts[parts.length -1];
+        return parts[parts.length - 1];
     }
 }
