@@ -27,7 +27,7 @@ public class BlockStoneSlab extends BlockSlab {
     public final BlockMetadataBase referenceBlock;
     private final NamedItem halfSlabNamer;
     
-    public BlockStoneSlab(boolean isDouble, Block refBlock,NamedSlabPair pairName){
+    public BlockStoneSlab(boolean isDouble, Block refBlock, NamedSlabPair pairName){
         super(isDouble, refBlock.getMaterial());
         this.setCreativeTab(isDouble ? null : UndergroundBiomes.tabModBlocks);
         isDoubleSlab = isDouble;
@@ -49,7 +49,8 @@ public class BlockStoneSlab extends BlockSlab {
         return getHalfSlab();
     }
 
-    public String func_150002_b(int meta) {
+    @Override
+	public String func_150002_b(int meta) {
         return referenceBlock.getUnlocalizedName() + "Slab."+referenceBlock.getBlockTypeName(meta);      
     }
 
@@ -81,7 +82,8 @@ public class BlockStoneSlab extends BlockSlab {
         }
     }
 
-    public int getDamageValue(World world, int x, int y, int z)
+    @Override
+	public int getDamageValue(World world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z) & 7;
     }
@@ -116,6 +118,7 @@ public class BlockStoneSlab extends BlockSlab {
     public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target){
         return false;
     }
+    
      @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune){
 
