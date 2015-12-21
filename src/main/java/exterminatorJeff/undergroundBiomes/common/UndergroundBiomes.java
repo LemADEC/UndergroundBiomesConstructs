@@ -487,7 +487,7 @@ public class UndergroundBiomes{
         Iterator<FMLModIdMappingEvent.ModRemapping> list = remappings.iterator();
         while (list.hasNext()) {
             FMLModIdMappingEvent.ModRemapping remapping = list.next();
-            logger.info(remapping.tag +  " from " + remapping.oldId + " to " +remapping.newId);
+            // logger.info(remapping.tag +  " from " + remapping.oldId + " to " + remapping.newId);
 
             // currently tags drop the fist letter
             if(remapping.tag.equals("inecraft:bed")){
@@ -496,7 +496,8 @@ public class UndergroundBiomes{
             // and presumably Forge will fix that
             if(remapping.tag.equals("Minecraft:bed")){
                 if (remapping.oldId<256) oldIDs = true;
-            }            // currently tags drop the fist letter
+            }
+            // currently tags drop the fist letter
             if(remapping.tag.equals("inecraft:wheat")){
                 if (remapping.oldId<256) oldIDs = true;
             }

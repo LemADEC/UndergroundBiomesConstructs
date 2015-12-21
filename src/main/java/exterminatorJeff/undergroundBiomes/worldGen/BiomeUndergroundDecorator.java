@@ -388,13 +388,13 @@ public class BiomeUndergroundDecorator {
         for (int i = 0 ;i < biomes.length; i++) {
             BiomeGenBase biome = biomes[i];
             if (biome != null) {
-                logger.info(biome.biomeName + " " + biome.toString());
+                // logger.info(biome.biomeName + " " + biome.toString());
                 BiomeDecorator currentDecorator = biome.theBiomeDecorator;
                 for (BiomeDecoratorCorrector corrector: this.correctors) {
                     BiomeDecorator newDecorator = corrector.corrected(biome,currentDecorator);
                     if (newDecorator != currentDecorator) {
                         // the corrector wants a change
-                        logger.info("changing");
+                        // logger.info("changing");
                         biome.theBiomeDecorator = newDecorator;
                         // we're done
                         break;
