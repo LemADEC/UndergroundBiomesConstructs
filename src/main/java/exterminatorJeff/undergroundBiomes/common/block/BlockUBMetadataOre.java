@@ -5,9 +5,11 @@ import Zeno410Utils.BlockState;
 import Zeno410Utils.MinecraftName;
 import Zeno410Utils.Mutable;
 import Zeno410Utils.Zeno410Logger;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -35,8 +37,8 @@ public class BlockUBMetadataOre extends BlockUBOre {
     private IBlockAccess currentShamAccess;
 
     public BlockUBMetadataOre(BlockMetadataBase stone, BlockState ore, BlockOverlay overlay, 
-            Mutable<Integer> renderIDSource, MinecraftName oreName) {
-        super(stone,ore.block,overlay,renderIDSource,oreName);
+            Mutable<Integer> renderIDSource) {
+        super(stone, ore.block, overlay, renderIDSource);
         oreMetadata = ore.metadata;
     }
     @Override
@@ -51,6 +53,12 @@ public class BlockUBMetadataOre extends BlockUBOre {
             currentShamAccess = new ThisBlockAccess(toWrap);
         }
         return currentShamAccess;
+    }
+
+    @Override
+	public String getDisplayName(int meta) {
+    	ItemStack itemStack = new ItemStack(ore, 1, oreMetadata);
+        return stone.getBlockName(meta) + " " + itemStack.getDisplayName();
     }
 
     @Override
@@ -139,47 +147,56 @@ public class BlockUBMetadataOre extends BlockUBOre {
             this.wrapped = wrapped;
         }
 
-        public Block getBlock(int arg0, int arg1, int arg2) {
+        @Override
+		public Block getBlock(int arg0, int arg1, int arg2) {
             if ((arg0 == x)&&(arg1== y)&&(arg2 == z)) return BlockUBMetadataOre.this;
             return wrapped.getBlock(arg0, arg1, arg2);
         }
 
-        public TileEntity getTileEntity(int arg0, int arg1, int arg2) {
+        @Override
+		public TileEntity getTileEntity(int arg0, int arg1, int arg2) {
             return wrapped.getTileEntity(arg0, arg1, arg2);
         }
 
-        public int getLightBrightnessForSkyBlocks(int arg0, int arg1, int arg2, int arg3) {
+        @Override
+		public int getLightBrightnessForSkyBlocks(int arg0, int arg1, int arg2, int arg3) {
             return wrapped.getLightBrightnessForSkyBlocks(arg0, arg1, arg2, arg3);
         }
 
-        public int getBlockMetadata(int arg0, int arg1, int arg2) {
+        @Override
+		public int getBlockMetadata(int arg0, int arg1, int arg2) {
             if ((arg0 == x)&&(arg1== y)&&(arg2 == z)) return oreMetadata;
             return wrapped.getBlockMetadata(arg0, arg1, arg2);
         }
 
-        public boolean isAirBlock(int arg0, int arg1, int arg2) {
+        @Override
+		public boolean isAirBlock(int arg0, int arg1, int arg2) {
             return wrapped.isAirBlock(arg0, arg1, arg2);
         }
 
-        public BiomeGenBase getBiomeGenForCoords(int arg0, int arg1) {
+        @Override
+		public BiomeGenBase getBiomeGenForCoords(int arg0, int arg1) {
             return wrapped.getBiomeGenForCoords(arg0, arg1);
         }
 
-        public int getHeight() {
+        @Override
+		public int getHeight() {
             return wrapped.getHeight();
         }
 
-        public boolean extendedLevelsInChunkCache() {
+        @Override
+		public boolean extendedLevelsInChunkCache() {
             return wrapped.extendedLevelsInChunkCache();
         }
 
-        public int isBlockProvidingPowerTo(int arg0, int arg1, int arg2, int arg3) {
+        @Override
+		public int isBlockProvidingPowerTo(int arg0, int arg1, int arg2, int arg3) {
             return wrapped.isBlockProvidingPowerTo(arg0, arg1, arg2, arg3);
         }
 
-        public boolean isSideSolid(int arg0, int arg1, int arg2, ForgeDirection arg3, boolean arg4) {
+        @Override
+		public boolean isSideSolid(int arg0, int arg1, int arg2, ForgeDirection arg3, boolean arg4) {
             return wrapped.isSideSolid(arg0, arg1, arg2, arg3, arg4);
         }
-
     }
 }
