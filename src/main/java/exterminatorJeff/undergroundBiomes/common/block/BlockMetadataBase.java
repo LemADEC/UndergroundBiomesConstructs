@@ -38,7 +38,8 @@ public abstract class BlockMetadataBase extends BlockStone {
     private int renderID;
     protected float ubExplosionResistance;
     private final Acceptor<Double> hardnessUpdater = new Acceptor<Double>() {
-            public void accept(Double newHardness) {
+            @Override
+			public void accept(Double newHardness) {
                 // we use the standard rather than the passed since we're having to cut back resistance
                 setHardness(1.5F*UndergroundBiomes.hardnessModifier());
                 // very bad programming practice but I should probably redo the whole system.
@@ -50,7 +51,8 @@ public abstract class BlockMetadataBase extends BlockStone {
 
 
     private final Acceptor<Double> resistanceUpdater = new Acceptor<Double>() {
-            public void accept(Double newResistance) {
+            @Override
+			public void accept(Double newResistance) {
                 // we use the standard rather than the passed since we're having to cut back resistance
                 setResistance(1.66F*UndergroundBiomes.resistanceModifier());
                 ubExplosionResistance = blockResistance;
@@ -85,17 +87,20 @@ public abstract class BlockMetadataBase extends BlockStone {
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata){
         return textures[metadata & 7];
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     protected String getTextureName(){
         return this.textureName == null ? "MISSING_ICON_BLOCK_" + getIdFromBlock(this) + "_" + this.getUnlocalizedName() : this.textureName;
     }
 
-    public void getSubBlocks(Item id, CreativeTabs tabs, List list)
+    @Override
+	public void getSubBlocks(Item id, CreativeTabs tabs, List list)
     {
         for (int i = 0; i < 8; i++){
             list.add(new ItemStack(id, 1, i));
@@ -127,17 +132,20 @@ public abstract class BlockMetadataBase extends BlockStone {
         return result;
     }
     
-    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+    @Override
+	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
         return getBlockExplosionResistance(getDamageValue(world, x, y, z) & 7);
     }
     
-    public float getBlockHardness(World world, int x, int y, int z)
+    @Override
+	public float getBlockHardness(World world, int x, int y, int z)
     {
         return getBlockHardness(getDamageValue(world, x, y, z) & 7);
     }
 
-    protected ItemStack createStackedBlock(int metadata){
+    @Override
+	protected ItemStack createStackedBlock(int metadata){
         return new ItemStack(this, 1, metadata & 7);
     }
 

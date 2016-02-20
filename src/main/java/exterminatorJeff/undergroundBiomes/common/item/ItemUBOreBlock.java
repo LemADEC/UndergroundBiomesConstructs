@@ -51,12 +51,7 @@ public class ItemUBOreBlock  extends ItemBlock {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-
         return theBlock.getDisplayName(stack.getItemDamage());
-        //String result =  super.getItemStackDisplayName(par1ItemStack);
-        //String lookup =  "tile." +result.split(":")[1];
-        //String lookup = result;
-        //return ("" + StatCollector.translateToLocal(lookup)).trim();
     }
 
     @Override

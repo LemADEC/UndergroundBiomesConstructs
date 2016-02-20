@@ -81,7 +81,7 @@ public class BlockUBHidden extends Block {
 
     @Override
     public String getItemIconName() {
-        return stone.getItemIconName()+" " + oreName.localized();
+        return stone.getItemIconName() + " " + oreName.localized();
     }
 
     public String getDisplayName(int meta) {
