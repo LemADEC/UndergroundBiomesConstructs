@@ -17,6 +17,8 @@ import java.util.Arrays;
 
 
 
+
+
 import net.minecraft.item.Item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -55,25 +57,22 @@ import exterminatorJeff.undergroundBiomes.constructs.util.UBCodeLocations;
 import exterminatorJeff.undergroundBiomes.constructs.UndergroundBiomesConstructs;
 import Zeno410Utils.Acceptor;
 import Zeno410Utils.ConfigManager;
+import Zeno410Utils.MinecraftName;
 import Zeno410Utils.PlayerDetector;
 import exterminatorJeff.undergroundBiomes.constructs.util.WatchList;
-import Zeno410Utils.Zeno410Logger;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.registry.GameData;
-import exterminatorJeff.undergroundBiomes.client.RenderUBOre;
 import exterminatorJeff.undergroundBiomes.network.PacketPipeline;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
 import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.OreGenEvent;
-import static java.lang.annotation.ElementType.*;
 
 @Mod(modid = "UndergroundBiomes", name = "Underground Biomes", version = "0.6h")
 
@@ -82,7 +81,7 @@ public class UndergroundBiomes{
     public UndergroundBiomes() {
         instance = this;
     }
-    public static Logger logger = new Zeno410Logger("UndergroundBiomes").logger();
+    public static org.apache.logging.log4j.Logger logger;
     private static UndergroundBiomes instance;
     public static UndergroundBiomes instance() {return instance;}
     public static World world;
@@ -229,10 +228,10 @@ public class UndergroundBiomes{
     private PlayerDetector playerDetector;
     private UndergroundBiomesNetworking networking;
 
-    @EventHandler
+	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        if (UBIDs.version != 3) throw new RuntimeException("" +
-                "Another mod has included an obsolete version of the Underground Biomes API. Underground Biomes Constructs cannot run.");
+		logger = event.getModLog();
+        if (UBIDs.version != 3) throw new RuntimeException("Another mod has included an obsolete version of the Underground Biomes API. Underground Biomes Constructs cannot run.");
         config = new Configuration(event.getSuggestedConfigurationFile());
         config.load();
 
@@ -337,11 +336,11 @@ public class UndergroundBiomes{
         //oreUBifier.setupUBOre(Blocks.redstone_ore,UBOreTexturizer.redstone_overlay, event);
         UBAPIHook.ubAPIHook.ubOreTexturizer.setupUBOre(Blocks.redstone_ore,UBOreTexturizer.redstone_overlay,event);
 
-        oreUBifier.setupUBOre(Blocks.coal_ore,UBOreTexturizer.coal_overlay, event);
-        oreUBifier.setupUBOre(Blocks.diamond_ore,UBOreTexturizer.diamond_overlay, event);
-        oreUBifier.setupUBOre(Blocks.lapis_ore,UBOreTexturizer.lapis_overlay, event);
-        oreUBifier.setupUBOre(Blocks.emerald_ore,UBOreTexturizer.emerald_overlay, event);
-        oreUBifier.setupUBOre(Blocks.gold_ore,UBOreTexturizer.gold_overlay, event);
+        oreUBifier.setupUBOre(Blocks.coal_ore   , UBOreTexturizer.coal_overlay   , event);
+        oreUBifier.setupUBOre(Blocks.diamond_ore, UBOreTexturizer.diamond_overlay, event);
+        oreUBifier.setupUBOre(Blocks.lapis_ore  , UBOreTexturizer.lapis_overlay  , event);
+        oreUBifier.setupUBOre(Blocks.emerald_ore, UBOreTexturizer.emerald_overlay, event);
+        oreUBifier.setupUBOre(Blocks.gold_ore   , UBOreTexturizer.gold_overlay   , event);
         oreUBifier.setupUBHidden(Blocks.monster_egg, event);
 
         oreRequester.fulfillRequests(event);
@@ -350,8 +349,39 @@ public class UndergroundBiomes{
         FMLCommonHandler.instance().bus().register(this);
         //FMLCommonHandler.instance().bus().register(new EventWatcher());
 
-        pipeline= new PacketPipeline();
+        pipeline = new PacketPipeline();
     }
+
+    private void registerCrossModOres() {
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 2, UBOreTexturizer.ruby_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 4, UBOreTexturizer.olivine_peridot_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 6, UBOreTexturizer.topaz_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 8, UBOreTexturizer.tanzanite_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 10, UBOreTexturizer.malachite_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 12, UBOreTexturizer.sapphire_overlay);
+		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 14, UBOreTexturizer.amber_overlay);
+		oreUBifier.setupUBOre("imc:block_adamantium_ore", 0, UBOreTexturizer.adamantium_overlay);
+		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 0, UBOreTexturizer.copper_overlay);
+		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 1, UBOreTexturizer.aluminium_overlay);
+		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 2, UBOreTexturizer.lead_overlay);
+		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 3, UBOreTexturizer.silver_overlay);
+		// oreUBifier.setupUBOre("ImmersiveEngineering:ore", 4, UBOreTexturizer.nickel_overlay);
+		oreUBifier.setupUBOre("wildcaves3:FossilBlock", 0, UBOreTexturizer.fossils_overlay);
+		oreUBifier.setupUBOre("magicalcrops:MinicioOre", 0, UBOreTexturizer.minicio_overlay);
+		oreUBifier.setupUBOre("harvestcraft:salt", 0, UBOreTexturizer.salt_overlay);
+		// oreUBifier.setupUBOre("Mimicry:Sparr_Mimichite Ore", 0, UBOreTexturizer.mimichite_overlay);
+		oreUBifier.setupUBOre("OptimumGS_Mod:bunginiteOre", 0, UBOreTexturizer.bunginite_overlay);
+		oreUBifier.setupUBOre("OptimumGS_Mod:carbonOre", 0, UBOreTexturizer.carbon_overlay);
+		oreUBifier.setupUBOre("OptimumGS_Mod:eridiumOre", 0, UBOreTexturizer.eridium_overlay);
+		oreUBifier.setupUBOre("OptimumGS_Mod:silverOre", 0, UBOreTexturizer.silver_overlay);
+		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 0, UBOreTexturizer.ruby_overlay);
+		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 1, UBOreTexturizer.copper_overlay);
+		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 2, UBOreTexturizer.tin_overlay);
+		// oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
+		oreUBifier.setupUBOre("TYNKYN:carnelianOre", 0, UBOreTexturizer.carnelian_overlay);
+		oreUBifier.setupUBOre("TYNKYN:surfaceOre", 0, UBOreTexturizer.no_overlay);
+		oreUBifier.setupUBOre("TYNKYN:talcOre", 0, UBOreTexturizer.talc_overlay);
+	}
 
     public StoneSlabPair stoneSlabPair(BlockMetadataBase material, NamedSlabPair slabPairName, String oreName) {
         BlockStoneSlab half = new BlockStoneSlab(false, material, slabPairName);
@@ -371,6 +401,9 @@ public class UndergroundBiomes{
 
     @EventHandler
     public void load(FMLInitializationEvent event){
+        
+        registerCrossModOres();
+        
         pipeline.initialise();
         playerDetector = new PlayerDetector();
         networking = new UndergroundBiomesNetworking(pipeline,settings);
@@ -469,7 +502,7 @@ public class UndergroundBiomes{
     private boolean forceRemap;
     @EventHandler
     public void onMissingMapping(FMLMissingMappingsEvent event) {
-       logger.info("missing mappings");
+       // logger.info("missing mappings");
        forceRemap = false;
         for (FMLMissingMappingsEvent.MissingMapping missing: event.get()) {
             logger.info(missing.name + " " + missing.type.toString());

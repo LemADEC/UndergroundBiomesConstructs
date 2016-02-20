@@ -30,22 +30,41 @@ public interface UBOreTexturizer {
     public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName, String blockName) throws BlocksAreAlreadySet;
     public void redoOres(int xInBlockCoordinates, int zInBlockCoordinates, World serverSideWorld) ;
 
+    public static String no_overlay = "undergroundbiomes:no_overlay";
+    
+    public static String adamantium_overlay = "undergroundbiomes:adamantium_overlay";
+    public static String aluminium_overlay = "undergroundbiomes:aluminium_overlay";
     public static String amber_overlay = "undergroundbiomes:amber_overlay";
+    public static String bunginite_overlay = "undergroundbiomes:bunginite_overlay";
+    public static String carbon_overlay = "undergroundbiomes:carbon_overlay";
+    public static String carnelian_overlay = "undergroundbiomes:carnelian_overlay";
     public static String cinnabar_overlay = "undergroundbiomes:cinnabar_overlay";
     public static String coal_overlay = "undergroundbiomes:coal_overlay";
     public static String copper_overlay = "undergroundbiomes:copper_overlay";
     public static String diamond_overlay = "undergroundbiomes:diamond_overlay";
     public static String emerald_overlay = "undergroundbiomes:emerald_overlay";
+    public static String eridium_overlay = "undergroundbiomes:eridium_overlay";
+    public static String fossils_overlay = "undergroundbiomes:fossils_overlay";
     public static String gold_overlay = "undergroundbiomes:gold_overlay";
     public static String iron_overlay = "undergroundbiomes:iron_overlay";
     public static String lapis_overlay = "undergroundbiomes:lapis_overlay";
     public static String lead_overlay = "undergroundbiomes:lead_overlay";
+    public static String malachite_overlay = "undergroundbiomes:malachite_overlay";
+    public static String minicio_overlay = "undergroundbiomes:minicio_overlay";
     public static String olivine_peridot_overlay = "undergroundbiomes:olivine-peridot_overlay";
     public static String redstone_overlay = "undergroundbiomes:redstone_overlay";
     public static String ruby_overlay = "undergroundbiomes:ruby_overlay";
+    public static String salt_overlay = "undergroundbiomes:salt_overlay";
     public static String sapphire_overlay = "undergroundbiomes:sapphire_overlay";
+    public static String silver_overlay = "undergroundbiomes:silver_overlay";
+    public static String sulfur_overlay = "undergroundbiomes:sulfur_overlay";
+    public static String talc_overlay = "undergroundbiomes:talc_overlay";
+    public static String tanzanite_overlay = "undergroundbiomes:tanzanite_overlay";
     public static String tin_overlay = "undergroundbiomes:tin_overlay";
+    public static String topaz_overlay = "undergroundbiomes:topaz_overlay";
     public static String uranium_overlay = "undergroundbiomes:uranium_overlay";
+    public static String zinc_overlay = "undergroundbiomes:zinc_overlay";
+    
 
     public class BlocksAreAlreadySet extends RuntimeException {
         // this is thrown if UB has already run its pre-initialization step and can no longer register blocks
