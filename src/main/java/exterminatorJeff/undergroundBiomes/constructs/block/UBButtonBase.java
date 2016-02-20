@@ -51,7 +51,8 @@ public class UBButtonBase extends BlockButton implements ITileEntityProvider{
     @Override
     public boolean hasTileEntity() {return true;}
 
-    public TileEntity createNewTileEntity(World world, int i) {
+    @Override
+	public TileEntity createNewTileEntity(World world, int i) {
         return new UndergroundBiomesTileEntity();
     }
 
@@ -84,6 +85,9 @@ public class UBButtonBase extends BlockButton implements ITileEntityProvider{
     }
 
     public final UndergroundBiomesBlock safeUBBlock(IBlockAccess world, int x, int y, int z) {
+    	if (world == null) {
+    		return ubBlock(0);
+    	}
         try {
             UndergroundBiomesTileEntity entity = ubTileEntity(world,x,y,z);
             if (entity == null) return ubBlock(0);
