@@ -1,8 +1,6 @@
 package exterminatorJeff.undergroundBiomes.common;
 
-import Zeno410Utils.MinecraftName;
 import Zeno410Utils.Zeno410Logger;
-//import com.teammetallurgy.metallurgy.metals.MetalBlock;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import exterminatorJeff.undergroundBiomes.api.UBAPIHook;
 import exterminatorJeff.undergroundBiomes.api.UBOreTexturizer;
@@ -11,8 +9,6 @@ import java.util.HashSet;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
@@ -31,13 +27,13 @@ public class OreUBifyRequester implements UBOreTexturizer {
 	
 	@Override
 	@Deprecated
-	public void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent event) {
+	public void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent notUsed) {
 		logger.info("setup attempt");
 		assert (oreBlock != null);
 		assert (metadata >= 0);
 		assert (metadata < 16);
 		assert (overlayName != null);
-		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata, minecraftName(oreBlock, metadata));
+		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata);
 	}
 	
 	@Override
@@ -53,12 +49,12 @@ public class OreUBifyRequester implements UBOreTexturizer {
 	}
 	
 	@Override
-	public void setupUBOre(Block oreBlock, int metadata, String overlayName, String blockName, FMLPreInitializationEvent event) {
-		setupUBOre(oreBlock, metadata, overlayName, new MinecraftName(blockName));
+	public void setupUBOre(Block oreBlock, int metadata, String overlayName, String blockName, FMLPreInitializationEvent notUsed) {
+		setupUBOre(oreBlock, metadata, overlayName);
 	}
 	
-	private void setupUBOre(Block oreBlock, int metadata, String overlayName, MinecraftName blockName) {
-		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata, blockName);
+	private void setupUBOre(Block oreBlock, int metadata, String overlayName) {
+		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata);
 	}
 	
 	@Override
@@ -69,7 +65,7 @@ public class OreUBifyRequester implements UBOreTexturizer {
 		assert (metadata < 16);
 		assert (overlayName != null);
 		logger.info("request OK");
-		waitingRequests.add(new UBifyRequestWithMetadata(oreBlock, metadata, overlayName, new MinecraftName(blockName)));
+		waitingRequests.add(new UBifyRequestWithMetadata(oreBlock, metadata, overlayName));
 	}
 	
 	private class UBifyRequest {
@@ -88,21 +84,15 @@ public class OreUBifyRequester implements UBOreTexturizer {
 	
 	private class UBifyRequestWithMetadata extends UBifyRequest {
 		final int metadata;
-		final MinecraftName name;
-		
-		UBifyRequestWithMetadata(Block ore, int metadata, String overlayName, MinecraftName name) {
-			super(ore, overlayName);
-			this.metadata = metadata;
-			this.name = name;
-		}
 		
 		UBifyRequestWithMetadata(Block ore, int metadata, String overlayName) {
-			this(ore, metadata, overlayName, minecraftName(ore, metadata));
+			super(ore, overlayName);
+			this.metadata = metadata;
 		}
 		
 		@Override
 		void fulfill(FMLPreInitializationEvent event) {
-			setupUBOre(ore, metadata, overlayName, name);
+			setupUBOre(ore, metadata, overlayName);
 		}
 	}
 	
@@ -135,13 +125,5 @@ public class OreUBifyRequester implements UBOreTexturizer {
 	@Override
 	public void redoOres(int x, int z, World world) {
 		UndergroundBiomes.instance().redoOres(x, z, world);
-	}
-	
-	private static MinecraftName minecraftName(Block block, int meta) {
-		if (ItemBlock.getItemFromBlock(block) != null) {
-			//Wasteful allocation. Not sure how else to do this, though.
-			return new MinecraftName((new ItemStack(ItemBlock.getItemFromBlock(block), 1, meta)).getUnlocalizedName());
-		}
-		throw new RuntimeException();
 	}
 }

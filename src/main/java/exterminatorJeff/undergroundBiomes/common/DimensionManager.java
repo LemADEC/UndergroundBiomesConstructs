@@ -136,7 +136,7 @@ public class DimensionManager {
         // Sometimes can get called before onWorldLoad, wtf?
         WorldGenManager worldGen = worldGenManager(id);
         if (worldGen == null) {
-            System.out.println("UndergroundBiomes warning: onBiomeDecorate before onWorldLoad! Ignoring.");
+            UndergroundBiomes.logger.warn("UndergroundBiomes warning: onBiomeDecorate before onWorldLoad! Ignoring.");
             return;
         }
         //logger.info("decorating dimension "+ id );

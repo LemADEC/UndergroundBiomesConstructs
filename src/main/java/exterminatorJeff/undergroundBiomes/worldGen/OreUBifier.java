@@ -16,7 +16,6 @@ import Zeno410Utils.Acceptor;
 import Zeno410Utils.ConcreteMutable;
 import Zeno410Utils.Function;
 import Zeno410Utils.KeyedRegistry;
-import Zeno410Utils.MinecraftName;
 import Zeno410Utils.Mutable;
 import Zeno410Utils.Zeno410Logger;
 import exterminatorJeff.undergroundBiomes.common.block.BlockUBMetadataOre;
@@ -88,16 +87,15 @@ public final class OreUBifier {
 		}
 		String unlocalizedName = blockOre.getUnlocalizedName();
 		UndergroundBiomes.logger.info("Adding ores: " + unlocalizedName);
-		MinecraftName minecraftName = new MinecraftName(blockOre.getUnlocalizedName());
-		setupUBOre(blockOre, overlayName, metadata, minecraftName);
+		setupUBOre(blockOre, overlayName, metadata);
 	}
 	
-	public void setupUBOre(Block oreBlock, String overlayName, int metadata, MinecraftName blockName) {
+	public void setupUBOre(Block oreBlock, String overlayName, int metadata) {
 		replacedOres.set(oreBlock, metadata);
 		this.replacedBlockClasses.add(oreBlock.getClass());
-		registerBlockWithMetadata(oreBlock, UndergroundBiomes.igneousStone, "igneous", overlayName, metadata, blockName);
-		registerBlockWithMetadata(oreBlock, UndergroundBiomes.metamorphicStone, "metamorphic", overlayName, metadata, blockName);
-		registerBlockWithMetadata(oreBlock, UndergroundBiomes.sedimentaryStone, "sedimentary", overlayName, metadata, blockName);
+		registerBlockWithMetadata(oreBlock, UndergroundBiomes.igneousStone, "igneous", overlayName, metadata);
+		registerBlockWithMetadata(oreBlock, UndergroundBiomes.metamorphicStone, "metamorphic", overlayName, metadata);
+		registerBlockWithMetadata(oreBlock, UndergroundBiomes.sedimentaryStone, "sedimentary", overlayName, metadata);
 	}
 	
 	private void registerHiddenBlock(Block oreBlock, BlockMetadataBase ubStone, String rockName) {
@@ -129,7 +127,7 @@ public final class OreUBifier {
 		stoneFor.put(ubOre, ubStone);
 	}
 	
-	private void registerBlockWithMetadata(Block oreBlock, BlockMetadataBase ubStone, String rockName, String overlayName, int metadata, MinecraftName metadataBlockName) {
+	private void registerBlockWithMetadata(Block oreBlock, BlockMetadataBase ubStone, String rockName, String overlayName, int metadata) {
 		BlockOverlay overlay = new BlockOverlay(overlayName);
 		
 		BlockState oreBlockState = new BlockState(oreBlock, metadata);

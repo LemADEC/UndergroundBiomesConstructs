@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 
 
+
 import net.minecraft.item.Item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -57,7 +58,6 @@ import exterminatorJeff.undergroundBiomes.constructs.util.UBCodeLocations;
 import exterminatorJeff.undergroundBiomes.constructs.UndergroundBiomesConstructs;
 import Zeno410Utils.Acceptor;
 import Zeno410Utils.ConfigManager;
-import Zeno410Utils.MinecraftName;
 import Zeno410Utils.PlayerDetector;
 import exterminatorJeff.undergroundBiomes.constructs.util.WatchList;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -436,9 +436,9 @@ public class UndergroundBiomes{
             try{
 		//ThaumcraftApi.registerObjectTag(id, meta, (new ObjectTags()).add(EnumTag.VALUABLE, 58).add(EnumTag.LIGHT, 15));
             }
-            catch (Exception e){
-                System.out.println("[UndergroundBiomes] Error while integrating with Thaumcraft");
-                e.printStackTrace(System.err);
+            catch (Exception exception){
+                logger.error("[UndergroundBiomes] Error while integrating with Thaumcraft");
+                exception.printStackTrace(System.err);
             }
         }
 
@@ -697,11 +697,11 @@ public class UndergroundBiomes{
         {
             Object obj = recipes.get(i);
             ItemStack output = ((IRecipe)obj).getRecipeOutput();
-            if (output != null && containsMatch(false, exclusions, output))
+            if (output == null || containsMatch(false, exclusions, output))
             {
                 continue;
             }
-            // supress alterations overriding construct recipes
+            // suppress alterations overriding construct recipes
             if (UndergroundBiomesConstructs.overridesRecipe((IRecipe)obj)) continue;
 
             if (obj instanceof ShapedRecipes)
@@ -711,7 +711,7 @@ public class UndergroundBiomes{
                 {
                     recipes.set(i, shapedConstr.newInstance(recipe, replacements));
                     numReplaced++;
-                    System.out.println("Changed shaped recipe for " + output.getDisplayName());
+                    UndergroundBiomes.logger.info("Changed shaped recipe for " + output.getDisplayName());
                 }
             }
             else if (obj instanceof ShapelessRecipes)
@@ -721,7 +721,7 @@ public class UndergroundBiomes{
                 {
                     recipes.set(i, shapelessConstr.newInstance(recipe, replacements));
                     numReplaced++;
-                    System.out.println("Changed shapeless recipe for " + output.getDisplayName());
+                    UndergroundBiomes.logger.info("Changed shapeless recipe for " + output.getDisplayName());
                 }
             }
             else if (obj instanceof ShapedOreRecipe)
@@ -730,7 +730,7 @@ public class UndergroundBiomes{
                 if (containsMatchReplaceInplace(true, recipe.getInput(), replaceStacks, replacements))
                 {
                     numReplaced++;
-                    System.out.println("Changed shaped ore recipe for " + output.getDisplayName());
+                    UndergroundBiomes.logger.info("Changed shaped ore recipe for " + output.getDisplayName());
                 }
             }
             else if (obj instanceof ShapelessOreRecipe)
@@ -739,7 +739,7 @@ public class UndergroundBiomes{
                 if (containsMatchReplaceInplace(true, recipe.getInput(), replaceStacks, replacements))
                 {
                     numReplaced++;
-                    System.out.println("Changed shapeless ore recipe for " + output.getDisplayName());
+                    UndergroundBiomes.logger.info("Changed shapeless ore recipe for " + output.getDisplayName());
                 }
             }
         }

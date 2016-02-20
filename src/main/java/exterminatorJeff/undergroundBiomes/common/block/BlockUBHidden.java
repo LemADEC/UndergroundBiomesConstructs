@@ -8,7 +8,6 @@ package exterminatorJeff.undergroundBiomes.common.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import exterminatorJeff.undergroundBiomes.common.UndergroundBiomes;
-import Zeno410Utils.MinecraftName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,13 +31,8 @@ public class BlockUBHidden extends Block {
 	
 	protected final BlockMetadataBase stone;
 	protected final Block ore;
-	private final MinecraftName oreName;
 	
 	public BlockUBHidden(BlockMetadataBase stone, final Block ore) {
-		this(stone, ore, new MinecraftName(ore.getUnlocalizedName()));
-	}
-	
-	public BlockUBHidden(BlockMetadataBase stone, Block ore, MinecraftName oreName) {
 		super(Material.rock);
 		this.stone = stone;
 		this.ore = ore;
@@ -48,7 +42,6 @@ public class BlockUBHidden extends Block {
 		
 		//renderIDSource = null;
 		this.setCreativeTab(UndergroundBiomes.tabModBlocks);
-		this.oreName = oreName;
 	}
 	
 	public Block block() {
@@ -84,7 +77,7 @@ public class BlockUBHidden extends Block {
 	
 	@Override
 	public String getItemIconName() {
-		return stone.getItemIconName() + " " + oreName.localized();
+		return stone.getItemIconName() + " " + ore.getItemIconName();
 	}
 	
 	public String getDisplayName(int meta) {
