@@ -1,4 +1,3 @@
-
 package exterminatorJeff.undergroundBiomes.common;
 
 import Zeno410Utils.MinecraftName;
@@ -21,118 +20,128 @@ import net.minecraft.world.World;
  * @author Zeno410
  */
 public class OreUBifyRequester implements UBOreTexturizer {
-
-    private static  Logger logger = new Zeno410Logger("OrUBifyRequester").logger();
-    private HashSet<UBifyRequest> waitingRequests = new HashSet<UBifyRequest>();
-    private boolean alreadyRun = false;
-
-    OreUBifyRequester() {
-        UBAPIHook.ubAPIHook.ubOreTexturizer = this;
-    }
-
-    @Deprecated
-    public void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent event) {
-        logger.info("setup attempt");
-        assert(oreBlock != null);
-        assert(metadata >=0);
-        assert(metadata < 16);
-        assert(overlayName != null);
-        UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata,minecraftName(oreBlock,metadata),event);
-    }
-
-    @Deprecated
-    public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName) throws BlocksAreAlreadySet {
-        logger.info("setup request for "+oreBlock.getLocalizedName());
-        assert(oreBlock != null);
-        assert(metadata >=0);
-        assert(metadata < 16);
-        assert(overlayName != null);
-        logger.info("request OK");
-        waitingRequests.add(new UBifyRequestWithMetadata(oreBlock,metadata,overlayName));
-    }
-
-    public void setupUBOre(Block oreBlock, int metadata, String overlayName, String blockName, FMLPreInitializationEvent event) {
-        setupUBOre(oreBlock, metadata, overlayName, new MinecraftName(blockName), event);
-    }
-
-    private void setupUBOre(Block oreBlock, int metadata, String overlayName, MinecraftName blockName, FMLPreInitializationEvent event) {
-        UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata, blockName, event);
-    }
-
-    public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName, String blockName) throws BlocksAreAlreadySet {
-        logger.info("setup request for "+oreBlock.getLocalizedName());
-        assert(oreBlock != null);
-        assert(metadata >=0);
-        assert(metadata < 16);
-        assert(overlayName != null);
-        logger.info("request OK");
-        waitingRequests.add(new UBifyRequestWithMetadata(oreBlock,metadata,overlayName, new MinecraftName(blockName)));
-    }
-    
-    private class UBifyRequest {
-        final Block ore;
-        final String overlayName;
-        UBifyRequest(Block ore, String overlayName) {
-            this.ore = ore;
-            this.overlayName = overlayName;
-        }
-        void fulfill(FMLPreInitializationEvent event) {
-            setupUBOre(ore,overlayName,event);
-        }
-    }
-
-    private class UBifyRequestWithMetadata extends UBifyRequest {
-        final int metadata;
-        final MinecraftName name;
-        UBifyRequestWithMetadata(Block ore, int metadata, String overlayName, MinecraftName name){
-            super(ore,overlayName);
-            this.metadata = metadata;
-            this.name = name;
-        }
-
-
-        UBifyRequestWithMetadata(Block ore, int metadata, String overlayName){
-            this(ore,metadata,overlayName,minecraftName(ore,metadata));
-        }
-
-        @Override
-        void fulfill(FMLPreInitializationEvent event) {
-            setupUBOre(ore,metadata,overlayName,name,event);
-        }
-    }
-    
-    public void setupUBOre(Block oreBlock, String overlayName, FMLPreInitializationEvent event) {
-        UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, event);
-    }
-
-
-    public void requestUBOreSetup(Block oreBlock, String overlayName) throws BlocksAreAlreadySet {
-        if (alreadyRun) {
-            BlocksAreAlreadySet error = new BlocksAreAlreadySet(oreBlock,overlayName);
-            if (UndergroundBiomes.crashOnProblems())throw error;
-            UndergroundBiomes.logger.severe(error.toString());
-        } else {
-             waitingRequests.add(new UBifyRequest(oreBlock,overlayName));
-        }
-    }
-
-    void fulfillRequests(FMLPreInitializationEvent event) {
-        // this should not be run by anyting other than the Underground Biomes Constructs object
-        alreadyRun = true;
-        for (UBifyRequest request: waitingRequests) {
-            request.fulfill(event);
-        }
-        waitingRequests.clear();
-    }
-
-    public void redoOres(int x, int z, World world) {
-        UndergroundBiomes.instance().redoOres(x, z, world);
-    }
-    private static MinecraftName minecraftName(Block block, int meta) {
-        if (ItemBlock.getItemFromBlock(block) != null) {
-        	//Wasteful allocation. Not sure how else to do this, though.
-            return new MinecraftName((new ItemStack(ItemBlock.getItemFromBlock(block), 1, meta)).getUnlocalizedName());
-        }
-        throw new RuntimeException();
-    }
+	
+	private static Logger logger = new Zeno410Logger("OrUBifyRequester").logger();
+	private HashSet<UBifyRequest> waitingRequests = new HashSet<UBifyRequest>();
+	private boolean alreadyRun = false;
+	
+	OreUBifyRequester() {
+		UBAPIHook.ubAPIHook.ubOreTexturizer = this;
+	}
+	
+	@Override
+	@Deprecated
+	public void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent event) {
+		logger.info("setup attempt");
+		assert (oreBlock != null);
+		assert (metadata >= 0);
+		assert (metadata < 16);
+		assert (overlayName != null);
+		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata, minecraftName(oreBlock, metadata));
+	}
+	
+	@Override
+	@Deprecated
+	public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName) throws BlocksAreAlreadySet {
+		logger.info("setup request for " + oreBlock.getLocalizedName());
+		assert (oreBlock != null);
+		assert (metadata >= 0);
+		assert (metadata < 16);
+		assert (overlayName != null);
+		logger.info("request OK");
+		waitingRequests.add(new UBifyRequestWithMetadata(oreBlock, metadata, overlayName));
+	}
+	
+	@Override
+	public void setupUBOre(Block oreBlock, int metadata, String overlayName, String blockName, FMLPreInitializationEvent event) {
+		setupUBOre(oreBlock, metadata, overlayName, new MinecraftName(blockName));
+	}
+	
+	private void setupUBOre(Block oreBlock, int metadata, String overlayName, MinecraftName blockName) {
+		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, metadata, blockName);
+	}
+	
+	@Override
+	public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName, String blockName) throws BlocksAreAlreadySet {
+		logger.info("setup request for " + oreBlock.getLocalizedName());
+		assert (oreBlock != null);
+		assert (metadata >= 0);
+		assert (metadata < 16);
+		assert (overlayName != null);
+		logger.info("request OK");
+		waitingRequests.add(new UBifyRequestWithMetadata(oreBlock, metadata, overlayName, new MinecraftName(blockName)));
+	}
+	
+	private class UBifyRequest {
+		final Block ore;
+		final String overlayName;
+		
+		UBifyRequest(Block ore, String overlayName) {
+			this.ore = ore;
+			this.overlayName = overlayName;
+		}
+		
+		void fulfill(FMLPreInitializationEvent event) {
+			setupUBOre(ore, overlayName, event);
+		}
+	}
+	
+	private class UBifyRequestWithMetadata extends UBifyRequest {
+		final int metadata;
+		final MinecraftName name;
+		
+		UBifyRequestWithMetadata(Block ore, int metadata, String overlayName, MinecraftName name) {
+			super(ore, overlayName);
+			this.metadata = metadata;
+			this.name = name;
+		}
+		
+		UBifyRequestWithMetadata(Block ore, int metadata, String overlayName) {
+			this(ore, metadata, overlayName, minecraftName(ore, metadata));
+		}
+		
+		@Override
+		void fulfill(FMLPreInitializationEvent event) {
+			setupUBOre(ore, metadata, overlayName, name);
+		}
+	}
+	
+	@Override
+	public void setupUBOre(Block oreBlock, String overlayName, FMLPreInitializationEvent event) {
+		UndergroundBiomes.instance().oreUBifier().setupUBOre(oreBlock, overlayName, event);
+	}
+	
+	@Override
+	public void requestUBOreSetup(Block oreBlock, String overlayName) throws BlocksAreAlreadySet {
+		if (alreadyRun) {
+			BlocksAreAlreadySet error = new BlocksAreAlreadySet(oreBlock, overlayName);
+			if (UndergroundBiomes.crashOnProblems())
+				throw error;
+			UndergroundBiomes.logger.error(error.toString());
+		} else {
+			waitingRequests.add(new UBifyRequest(oreBlock, overlayName));
+		}
+	}
+	
+	void fulfillRequests(FMLPreInitializationEvent event) {
+		// this should not be run by anyting other than the Underground Biomes Constructs object
+		alreadyRun = true;
+		for (UBifyRequest request : waitingRequests) {
+			request.fulfill(event);
+		}
+		waitingRequests.clear();
+	}
+	
+	@Override
+	public void redoOres(int x, int z, World world) {
+		UndergroundBiomes.instance().redoOres(x, z, world);
+	}
+	
+	private static MinecraftName minecraftName(Block block, int meta) {
+		if (ItemBlock.getItemFromBlock(block) != null) {
+			//Wasteful allocation. Not sure how else to do this, though.
+			return new MinecraftName((new ItemStack(ItemBlock.getItemFromBlock(block), 1, meta)).getUnlocalizedName());
+		}
+		throw new RuntimeException();
+	}
 }
