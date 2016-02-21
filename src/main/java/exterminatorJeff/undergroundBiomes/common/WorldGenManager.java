@@ -23,20 +23,13 @@ import net.minecraftforge.event.terraingen.BiomeEvent.GetVillageBlockMeta;
 import exterminatorJeff.undergroundBiomes.worldGen.UBChunkProvider;
 import exterminatorJeff.undergroundBiomes.worldGen.UndergroundBiomeSet;
 import exterminatorJeff.undergroundBiomes.worldGen.VillageStoneChanger;
-import Zeno410Utils.Zeno410Logger;
 import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.lang.reflect.*;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
 public class WorldGenManager {
-
-    public static Logger logger = new Zeno410Logger("WorldGenManager").logger();
 
     public final int dimension;
 
@@ -84,14 +77,6 @@ public class WorldGenManager {
             this.genUndergroundBiomes = gen[0];
             this.undergroundBiomeIndexLayer = gen[1];
         }
-
-        // examine gen layer
-        /*try {
-          new AccessGenLayer().report(undergroundBiomeIndexLayer);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-         */
 
         villageStoneSource = new BiomeUndergroundDecorator(this,oreUBifier);
         villageStoneChanger = new VillageStoneChanger();
@@ -352,7 +337,7 @@ public class WorldGenManager {
         private void setIChunkProviderField() throws IllegalAccessException{
             Field [] fields = WorldServer.class.getDeclaredFields();
             for (int i = 0; i < fields.length;i ++) {
-            	logger.log(Level.FINEST,"WorldServer field #" + i + " is a " + fields[i].getType().getName(), false);
+            	UndergroundBiomes.logger.info("WorldServer field #" + i + " is a " + fields[i].getType().getName(), false);
                 if (fields[i].getType() == ChunkProviderServer.class) {
                     iChunkProviderServerField = fields[i];
                     iChunkProviderServerField.setAccessible(true);
@@ -384,30 +369,5 @@ public class WorldGenManager {
             }
         }
     }
-
-    static class AccessGenLayer extends GenLayer {
-        AccessGenLayer() {super(0);}
-        public int[] getInts(int i, int j, int k, int l) {return null;}
-
-        public void report(GenLayer examinedLayer) throws IllegalAccessException{
-            Field [] fields = this.getClass().getSuperclass().getDeclaredFields();
-            Field parentField = null;
-            //logger.info( "fieldcount "+fields.length);
-            for (int i = 0; i < fields.length;i ++) {
-                //logger.info( fields[i].getName());
-                if (GenLayer.class.isAssignableFrom(fields[i].getClass())) {
-                    parentField.setAccessible(true);
-                }
-            }
-            int level = 0;
-            while (examinedLayer!= null) {
-                //logger.info( examinedLayer.getClass().getName());
-                level ++;
-                examinedLayer = (GenLayer)(parentField.get(examinedLayer));
-                if (level > 100) break;
-            }
-        }
-    }
-
 }
 

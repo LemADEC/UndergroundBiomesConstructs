@@ -33,7 +33,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 import exterminatorJeff.undergroundBiomes.api.UndergroundBiomesSettings;
 import exterminatorJeff.undergroundBiomes.common.item.SwitchableRecipeGroup;
-import Zeno410Utils.Zeno410Logger;
 
 //@Mod(modid = "UndergroundBiomesConstructs", name = "Underground Biomes Constructs", version = "0.0.4")
 //@NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -70,16 +69,16 @@ public class UndergroundBiomesConstructs {
     private SwitchableRecipeGroup buttonRecipes;
 
     //@PreIni
-    public void preInit(Configuration config) {
-        this.config = config;
+    public void preInit(Configuration parConfig) {
+        config = parConfig;
         ubBlockList = new UndergroundBiomesBlockList();
         GameRegistry.registerTileEntity(UndergroundBiomesTileEntity.class, "UndergroundBiomesTileEntity");
         iconTrap = new IconTrap();
 
         // with world-specific configs the buttons always have to exist.
-        /*if (UndergroundBiomes.buttonsOn())*/ preInitButtons();
-        /*if (UndergroundBiomes.stairsOn())*/ preInitStairs();
-        /*if (UndergroundBiomes.wallsOn())*/ preInitWalls();
+        preInitButtons();
+        preInitStairs();
+        preInitWalls();
     }
 
     public void preInitStairs() {
@@ -101,22 +100,19 @@ public class UndergroundBiomesConstructs {
     }
 
     public void load(FMLInitializationEvent event) {
-        /*if (UndergroundBiomes.buttonsOn())*/ loadButtons();
-        /*if (UndergroundBiomes.stairsOn())*/ loadStairs();
-        /*if (UndergroundBiomes.wallsOn())*/ loadWalls();
+        loadButtons();
+        loadStairs();
+        loadWalls();
     }
 
     private void loadStairs(){
-        //stoneStair.addRecipes();
         stairRecipes = new SwitchableRecipeGroup(stoneStair.recipes(),settings().stairsOn);
     }
     private void loadWalls() {
-        //stoneWall.addRecipes();
         wallRecipes = new SwitchableRecipeGroup(stoneWall.recipes(),settings().wallsOn);
     }
 
     private void loadButtons() {
-        //stoneButton.addRecipes();
         buttonRecipes = new SwitchableRecipeGroup(stoneButton.recipes(),settings().buttonsOn);
     }
 
@@ -164,7 +160,8 @@ class IconTrap extends BlockSedimentaryStone {
 
     IconTrap() {super(UBIDs.IconTrap);}
     
-    public IIcon getIcon(int side, int metadata) {
+    @Override
+	public IIcon getIcon(int side, int metadata) {
 
         return ItemUndergroundBiomesConstruct.currentColor;
     }

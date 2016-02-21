@@ -1,6 +1,5 @@
 package exterminatorJeff.undergroundBiomes.worldGen;
 
-import Zeno410Utils.Accessor;
 import Zeno410Utils.BlockLocation;
 import Zeno410Utils.BlockLocationProbe;
 import Zeno410Utils.BlockState;
@@ -20,15 +19,6 @@ import exterminatorJeff.undergroundBiomes.common.WorldGenManager;
 
 import exterminatorJeff.undergroundBiomes.api.NamedVanillaBlock;
 import exterminatorJeff.undergroundBiomes.common.block.BlockMetadataBase;
-//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBBadlands;
-//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBCliffs;
-//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBDesertMountains;
-//import exterminatorJeff.undergroundBiomes.intermod.BiomeGenUBRockMountains;
-//import highlands.biome.BiomeDecoratorHighlands;
-//import highlands.biome.BiomeGenBadlands;
-//import highlands.biome.BiomeGenCliffs;
-//import highlands.biome.BiomeGenDesertMountains;
-//import highlands.biome.BiomeGenRockMountains;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import net.minecraft.world.biome.BiomeDecorator;
@@ -417,7 +407,8 @@ public class BiomeUndergroundDecorator {
     private class VanillaDecoratorCorrector implements BiomeDecoratorCorrector {
         Class standardDecoratorClass = BiomeDecorator.class;
 
-        public BiomeDecorator corrected(BiomeGenBase biome, BiomeDecorator currentDecorator) {
+        @Override
+		public BiomeDecorator corrected(BiomeGenBase biome, BiomeDecorator currentDecorator) {
             if ((currentDecorator.getClass().equals(standardDecoratorClass))) {
                 return new CorrectedBiomeDecorator(currentDecorator);
             }
