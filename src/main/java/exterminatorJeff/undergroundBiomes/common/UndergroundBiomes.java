@@ -360,6 +360,7 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 10, UBOreTexturizer.malachite_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 12, UBOreTexturizer.sapphire_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 14, UBOreTexturizer.amber_overlay);
+		oreUBifier.setupUBOre("bonecraft:Fossil", 0, UBOreTexturizer.fossils_overlay);
 		oreUBifier.setupUBOre("imc:block_adamantium_ore", 0, UBOreTexturizer.adamantium_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 0, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 1, UBOreTexturizer.aluminium_overlay);
