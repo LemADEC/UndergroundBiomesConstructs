@@ -54,7 +54,6 @@ public class VillageStoneChanger {
 		}
 		if (event.original == Blocks.stone_slab) {
 			event.replacement = preferredStone.slabVersionEquivalent().block;
-			replacing = true;
 			event.setResult(Result.DENY);
 		}
 	}
