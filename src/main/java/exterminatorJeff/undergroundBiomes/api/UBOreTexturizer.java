@@ -50,7 +50,9 @@ public interface UBOreTexturizer {
     public static String lapis_overlay = "undergroundbiomes:lapis_overlay";
     public static String lead_overlay = "undergroundbiomes:lead_overlay";
     public static String malachite_overlay = "undergroundbiomes:malachite_overlay";
+    public static String mimichite_overlay = "undergroundbiomes:mimichite_overlay";
     public static String minicio_overlay = "undergroundbiomes:minicio_overlay";
+    public static String nickel_overlay = "undergroundbiomes:nickel_overlay";
     public static String olivine_peridot_overlay = "undergroundbiomes:olivine-peridot_overlay";
     public static String redstone_overlay = "undergroundbiomes:redstone_overlay";
     public static String ruby_overlay = "undergroundbiomes:ruby_overlay";
@@ -62,6 +64,7 @@ public interface UBOreTexturizer {
     public static String tanzanite_overlay = "undergroundbiomes:tanzanite_overlay";
     public static String tin_overlay = "undergroundbiomes:tin_overlay";
     public static String topaz_overlay = "undergroundbiomes:topaz_overlay";
+    public static String tourmaline_overlay = "undergroundbiomes:tourmaline_overlay";
     public static String uranium_overlay = "undergroundbiomes:uranium_overlay";
     public static String zinc_overlay = "undergroundbiomes:zinc_overlay";
     

@@ -366,11 +366,11 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 1, UBOreTexturizer.aluminium_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 2, UBOreTexturizer.lead_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 3, UBOreTexturizer.silver_overlay);
-		// oreUBifier.setupUBOre("ImmersiveEngineering:ore", 4, UBOreTexturizer.nickel_overlay);
+		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 4, UBOreTexturizer.nickel_overlay);
 		oreUBifier.setupUBOre("wildcaves3:FossilBlock", 0, UBOreTexturizer.fossils_overlay);
 		oreUBifier.setupUBOre("magicalcrops:MinicioOre", 0, UBOreTexturizer.minicio_overlay);
 		oreUBifier.setupUBOre("harvestcraft:salt", 0, UBOreTexturizer.salt_overlay);
-		// oreUBifier.setupUBOre("Mimicry:Sparr_Mimichite Ore", 0, UBOreTexturizer.mimichite_overlay);
+		oreUBifier.setupUBOre("Mimicry:Sparr_Mimichite Ore", 0, UBOreTexturizer.mimichite_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:bunginiteOre", 0, UBOreTexturizer.bunginite_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:carbonOre", 0, UBOreTexturizer.carbon_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:eridiumOre", 0, UBOreTexturizer.eridium_overlay);
@@ -378,7 +378,7 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 0, UBOreTexturizer.ruby_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 1, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 2, UBOreTexturizer.tin_overlay);
-		// oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
+		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
 		oreUBifier.setupUBOre("TYNKYN:carnelianOre", 0, UBOreTexturizer.carnelian_overlay);
 		oreUBifier.setupUBOre("TYNKYN:surfaceOre", 0, UBOreTexturizer.no_overlay);
 		oreUBifier.setupUBOre("TYNKYN:talcOre", 0, UBOreTexturizer.talc_overlay);
