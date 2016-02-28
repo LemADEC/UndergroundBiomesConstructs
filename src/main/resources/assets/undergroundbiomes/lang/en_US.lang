@@ -336,3 +336,6 @@ item.fossilPiece.skull.name=Skull fossil
 
 itemGroup.undergroundBiomesBlocks=Underground Biomes Blocks
 itemGroup.undergroundBiomesItems=Underground Biomes Items
+
+commands.oredictifystone.ok=Recipes successfully updated
+commands.oredictifystone.fail=Failed to update recipes, check console for details

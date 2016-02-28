@@ -99,3 +99,6 @@ item.fossilPiece.skull.name=Koponya
 
 itemGroup.undergroundBiomesBlocks=Underground Biomes Tömbök
 itemGroup.undergroundBiomesItems=Underground Biomes Tárgyak
+
+commands.oredictifystone.ok=Recipes successfully updated
+commands.oredictifystone.fail=Failed to update recipes, check console for details

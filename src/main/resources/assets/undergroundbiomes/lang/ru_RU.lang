@@ -337,3 +337,6 @@ item.fossilPiece.skull.name=Ископаемый череп
 
 itemGroup.undergroundBiomesBlocks=Underground Biomes: Блоки
 itemGroup.undergroundBiomesItems=Underground Biomes: Предметы
+
+commands.oredictifystone.ok=Recipes successfully updated
+commands.oredictifystone.fail=Failed to update recipes, check console for details

@@ -99,3 +99,6 @@ item.fossilPiece.skull.name=Crâne
 
 itemGroup.undergroundBiomesBlocks=Blocs de Underground Biomes
 itemGroup.undergroundBiomesItems=Objets de Underground Biomes
+
+commands.oredictifystone.ok=Mise à jour des recettes réussi
+commands.oredictifystone.fail=Mise à jour des recettes échoué
