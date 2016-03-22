@@ -353,6 +353,13 @@ public class UndergroundBiomes{
     }
 
     private void registerCrossModOres() {
+		oreUBifier.setupUBOre("appliedenergistics2:tile.OreQuartz", 0, "appliedenergistics2:OreQuartz");
+		oreUBifier.setupUBOre("appliedenergistics2:tile.OreQuartzCharged", 0, "appliedenergistics2:OreQuartzCharged");
+		oreUBifier.setupUBOre("arsmagica2:vinteumOre", 0, UBOreTexturizer.vinteum_overlay);
+		oreUBifier.setupUBOre("arsmagica2:vinteumOre", 1, UBOreTexturizer.chimerite_overlay);
+		oreUBifier.setupUBOre("arsmagica2:vinteumOre", 2, UBOreTexturizer.bluetopaz_overlay);
+		oreUBifier.setupUBOre("arsmagica2:vinteumOre", 3, UBOreTexturizer.moonstone_overlay);
+		oreUBifier.setupUBOre("arsmagica2:vinteumOre", 4, UBOreTexturizer.sunstone_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 2, UBOreTexturizer.ruby_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 4, UBOreTexturizer.olivine_peridot_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 6, UBOreTexturizer.topaz_overlay);
@@ -361,15 +368,15 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 12, UBOreTexturizer.sapphire_overlay);
 		oreUBifier.setupUBOre("BiomesOPlenty:gemOre", 14, UBOreTexturizer.amber_overlay);
 		oreUBifier.setupUBOre("bonecraft:Fossil", 0, UBOreTexturizer.fossils_overlay);
+		oreUBifier.setupUBOre("evilcraft:darkOre", 0, "evilcraft:darkOre");
+		oreUBifier.setupUBOre("harvestcraft:salt", 0, UBOreTexturizer.salt_overlay);
 		oreUBifier.setupUBOre("imc:block_adamantium_ore", 0, UBOreTexturizer.adamantium_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 0, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 1, UBOreTexturizer.aluminium_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 2, UBOreTexturizer.lead_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 3, UBOreTexturizer.silver_overlay);
 		oreUBifier.setupUBOre("ImmersiveEngineering:ore", 4, UBOreTexturizer.nickel_overlay);
-		oreUBifier.setupUBOre("wildcaves3:FossilBlock", 0, UBOreTexturizer.fossils_overlay);
 		oreUBifier.setupUBOre("magicalcrops:MinicioOre", 0, UBOreTexturizer.minicio_overlay);
-		oreUBifier.setupUBOre("harvestcraft:salt", 0, UBOreTexturizer.salt_overlay);
 		oreUBifier.setupUBOre("Mimicry:Sparr_Mimichite Ore", 0, UBOreTexturizer.mimichite_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:bunginiteOre", 0, UBOreTexturizer.bunginite_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:carbonOre", 0, UBOreTexturizer.carbon_overlay);
@@ -379,9 +386,12 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 1, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 2, UBOreTexturizer.tin_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
+		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 0, UBOreTexturizer.cinnabar_overlay);	// cinnabar ore
+		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 7, UBOreTexturizer.amber2_overlay);	// amber bearing stone
 		oreUBifier.setupUBOre("TYNKYN:carnelianOre", 0, UBOreTexturizer.carnelian_overlay);
 		oreUBifier.setupUBOre("TYNKYN:surfaceOre", 0, UBOreTexturizer.no_overlay);
 		oreUBifier.setupUBOre("TYNKYN:talcOre", 0, UBOreTexturizer.talc_overlay);
+		oreUBifier.setupUBOre("wildcaves3:FossilBlock", 0, UBOreTexturizer.fossils_overlay);
 	}
 
     public StoneSlabPair stoneSlabPair(BlockMetadataBase material, NamedSlabPair slabPairName, String oreName) {
