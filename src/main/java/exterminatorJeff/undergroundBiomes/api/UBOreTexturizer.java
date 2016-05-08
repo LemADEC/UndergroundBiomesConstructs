@@ -56,6 +56,7 @@ public interface UBOreTexturizer {
     public static String mimichite_overlay = "undergroundbiomes:mimichite_overlay";
     public static String minicio_overlay = "undergroundbiomes:minicio_overlay";
     public static String moonstone_overlay = "undergroundbiomes:moonstone_overlay";
+    public static String naquadah_overlay = "undergroundbiomes:naquadah_overlay";
     public static String nickel_overlay = "undergroundbiomes:nickel_overlay";
     public static String olivine_peridot_overlay = "undergroundbiomes:olivine-peridot_overlay";
     public static String redstone_overlay = "undergroundbiomes:redstone_overlay";

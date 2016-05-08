@@ -386,6 +386,7 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 1, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 2, UBOreTexturizer.tin_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
+		oreUBifier.setupUBOre("StargateTech2:block.naquadah", 0, UBOreTexturizer.naquadah_overlay);
 		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 0, UBOreTexturizer.cinnabar_overlay);	// cinnabar ore
 		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 7, UBOreTexturizer.amber2_overlay);	// amber bearing stone
 		oreUBifier.setupUBOre("TYNKYN:carnelianOre", 0, UBOreTexturizer.carnelian_overlay);
