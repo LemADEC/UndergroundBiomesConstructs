@@ -2,11 +2,9 @@ package exterminatorJeff.undergroundBiomes.common.block;
 
 import Zeno410Utils.BlockState;
 import Zeno410Utils.Mutable;
-import Zeno410Utils.Zeno410Logger;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -24,8 +22,6 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public class BlockUBMetadataOre extends BlockUBOre {
 	
-	public static Logger logger = new Zeno410Logger("BlockUBMetadataOre").logger();
-	
 	private final int oreMetadata;
 	private IBlockAccess currentAccess;
 	private IBlockAccess currentShamAccess;
@@ -37,7 +33,6 @@ public class BlockUBMetadataOre extends BlockUBOre {
 	
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		logger.info("Getting drops " + oreMetadata);
 		return ore.getDrops(world, x, y, z, oreMetadata, fortune);
 	}
 	
