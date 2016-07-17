@@ -111,8 +111,9 @@ public class BlockUBOre extends Block {
 	}
 	
 	public String getDisplayName(int meta) {
-		ItemStack itemStack = new ItemStack(ore, 1, 0);
-		return stone.getBlockName(meta) + " " + itemStack.getDisplayName();
+		ItemStack itemStackStone = new ItemStack(stone, 1, meta);
+		ItemStack itemStackOre = new ItemStack(ore, 1, 0);
+		return itemStackStone.getDisplayName() + " " + itemStackOre.getDisplayName();
 	}
 	
 	public String getUnlocalizedName(int meta) {
@@ -131,7 +132,12 @@ public class BlockUBOre extends Block {
 	
 	@Override
 	public float getBlockHardness(World p_149712_1_, int p_149712_2_, int p_149712_3_, int p_149712_4_) {
-		return ore.getBlockHardness(p_149712_1_, p_149712_2_, p_149712_3_, p_149712_4_);
+		if (blockHardness <= 0) {
+			blockHardness = Math.max(
+				stone.getBlockHardness(p_149712_1_, p_149712_2_, p_149712_3_, p_149712_4_),
+				ore.getBlockHardness(p_149712_1_, p_149712_2_, p_149712_3_, p_149712_4_) );
+		}
+		return blockHardness;
 	}
 	
 	@Override
@@ -193,4 +199,8 @@ public class BlockUBOre extends Block {
 		return metadata;
 	}
 	
+	@Override
+	public int getHarvestLevel(int metadata) {
+		return ore.getHarvestLevel(metadata);
+	}
 }

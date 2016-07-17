@@ -46,8 +46,9 @@ public class BlockUBMetadataOre extends BlockUBOre {
 	
 	@Override
 	public String getDisplayName(int meta) {
-		ItemStack itemStack = new ItemStack(ore, 1, oreMetadata);
-		return stone.getBlockName(meta) + " " + itemStack.getDisplayName();
+		ItemStack itemStackStone = new ItemStack(stone, 1, meta);
+		ItemStack itemStackOre = new ItemStack(ore, 1, oreMetadata);
+		return itemStackStone.getDisplayName() + " " + itemStackOre.getDisplayName();
 	}
 	
 	@Override
@@ -65,11 +66,15 @@ public class BlockUBMetadataOre extends BlockUBOre {
 	
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
-		int stoneMetadata = world.getBlockMetadata(x, y, z);
-		world.setBlockMetadataWithNotify(x, y, z, oreMetadata, 0);
-		float result = ore.getBlockHardness(world, x, y, z);
-		world.setBlockMetadataWithNotify(x, y, z, stoneMetadata, 0);
-		return result;
+		if (blockHardness <= 0) {
+			float stoneHardness = stone.getBlockHardness(world, x, y, z);
+			int stoneMetadata = world.getBlockMetadata(x, y, z);
+			world.setBlockMetadataWithNotify(x, y, z, oreMetadata, 0);
+			blockHardness = Math.max(stoneHardness, ore.getBlockHardness(world, x, y, z));
+			world.setBlockMetadataWithNotify(x, y, z, stoneMetadata, 0);
+		}
+		
+		return blockHardness;
 	}
 	
 	@Override
@@ -125,6 +130,11 @@ public class BlockUBMetadataOre extends BlockUBOre {
 		world.setBlockMetadataWithNotify(x, y, z, oreMetadata, 0);
 		super.randomDisplayTick(world, x, y, z, p_149734_5_);
 		world.setBlockMetadataWithNotify(x, y, z, stoneMetadata, 0);
+	}
+	
+	@Override
+	public int getHarvestLevel(int metadata) {
+		return ore.getHarvestLevel(oreMetadata);
 	}
 	
 	private class ThisBlockAccess implements IBlockAccess {
