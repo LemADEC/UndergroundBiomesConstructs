@@ -56,14 +56,19 @@ public class RenderUBOre implements ISimpleBlockRenderingHandler {
 
         metadata = metadata & 7;
         //logger.info(" at "+x+ ","+y+ ","+z+ ":"+metadata);
-        int i = x;
-        int j = y;
-        int k = z;
+        // int i = x;
+        // int j = y;
+        // int k = z;
+        try {
         Block renderedBlock = world.getBlock(x, y, z);
         IIcon self = ubifier.baseStone(renderedBlock).getIcon(0, metadata);
         renderer.renderBlockUsingTexture(ubifier.baseStone(renderedBlock), x, y, z, self);
         IIcon overlay = ubifier.overlayBlock(renderedBlock).getIcon(0, 0);
         renderer.renderBlockUsingTexture(ubifier.overlayBlock(renderedBlock), x, y, z, overlay);
+        } catch(Exception exception) {
+        	// nothing
+        	System.out.print("Exception at "+x+ " "+y+ " "+z + " " + block + ":"+metadata);
+        }
 
         return true;
     }
