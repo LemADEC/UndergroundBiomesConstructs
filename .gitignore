@@ -1,5 +1,6 @@
 #Ignore cached files.
 .gradle/
+.idea
 build/
 bin/
 #Minecraft game data
