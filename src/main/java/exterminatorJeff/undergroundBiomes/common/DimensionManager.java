@@ -251,10 +251,8 @@ public class DimensionManager {
     }
 
     public void redoOres(int x, int z, World world) {
-        WorldGenManager worldGenManager = worldGenManagers.get(world.provider.dimensionId);
-        if (worldGenManager != null) {
-            worldGenManager.redoOres(x, z, world);
-        } else UndergroundBiomes.logger.info("no manager for "+world.toString());
+    	WorldGenManager worldGenManager = worldGenManager(world.provider.dimensionId);
+        worldGenManager.redoOres(x, z, world);
     }
 
 }
