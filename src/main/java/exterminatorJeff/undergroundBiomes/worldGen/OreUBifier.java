@@ -221,7 +221,7 @@ public final class OreUBifier {
 			Block ore = oreFor.get(block);
 			try {
 				int oreID = OreDictionary.getOreID(new ItemStack(ore));
-				OreDictionary.registerOre(oreID, block);
+				OreDictionary.registerOre(oreID, new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
 			} catch (NullPointerException e) {
 				if (UndergroundBiomes.crashOnProblems())
 					throw e;
