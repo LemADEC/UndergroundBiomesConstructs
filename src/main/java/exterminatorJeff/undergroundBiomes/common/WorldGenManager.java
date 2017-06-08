@@ -337,7 +337,7 @@ public class WorldGenManager {
         private void setIChunkProviderField() throws IllegalAccessException{
             Field [] fields = WorldServer.class.getDeclaredFields();
             for (int i = 0; i < fields.length;i ++) {
-            	UndergroundBiomes.logger.info("WorldServer field #" + i + " is a " + fields[i].getType().getName(), false);
+            	// UndergroundBiomes.logger.info("WorldServer field #" + i + " is a " + fields[i].getType().getName(), false);
                 if (fields[i].getType() == ChunkProviderServer.class) {
                     iChunkProviderServerField = fields[i];
                     iChunkProviderServerField.setAccessible(true);
