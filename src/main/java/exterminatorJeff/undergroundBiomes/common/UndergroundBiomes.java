@@ -74,7 +74,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 
-@Mod(modid = "UndergroundBiomes", name = "Underground Biomes", version = "0.6h")
+@Mod(modid = "UndergroundBiomes", name = "Underground Biomes", version = "0.8.13")
 
 public class UndergroundBiomes{
     
@@ -387,16 +387,42 @@ public class UndergroundBiomes{
 		oreUBifier.setupUBOre("OptimumGS_Mod:carbonOre", 0, UBOreTexturizer.carbon_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:eridiumOre", 0, UBOreTexturizer.eridium_overlay);
 		oreUBifier.setupUBOre("OptimumGS_Mod:silverOre", 0, UBOreTexturizer.silver_overlay);
+		oreUBifier.setupUBOre("nevermine:oreAmethyst", 0, UBOreTexturizer.amethyst_overlay);
+		oreUBifier.setupUBOre("nevermine:oreJade", 0, UBOreTexturizer.jade_overlay);
+		oreUBifier.setupUBOre("nevermine:oreLimonite", 0, UBOreTexturizer.limonite_overlay);
+		oreUBifier.setupUBOre("nevermine:oreRosite", 0, UBOreTexturizer.rosite_overlay);
+		oreUBifier.setupUBOre("nevermine:oreRunium", 0, UBOreTexturizer.runium_overlay);
+		oreUBifier.setupUBOre("nevermine:oreSapphire", 0, UBOreTexturizer.sapphire_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 0, UBOreTexturizer.ruby_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 1, UBOreTexturizer.copper_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 2, UBOreTexturizer.tin_overlay);
 		oreUBifier.setupUBOre("randomadditions:BlockRAOre", 3, UBOreTexturizer.tourmaline_overlay);
 		oreUBifier.setupUBOre("StargateTech2:block.naquadah", 0, UBOreTexturizer.naquadah_overlay);
+		oreUBifier.setupUBOre("Techguns:oreTitanIron", 0, UBOreTexturizer.titanium_overlay);
+		oreUBifier.setupUBOre("Techguns:oreTitanIron", 1, UBOreTexturizer.uranium_overlay);
 		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 0, UBOreTexturizer.cinnabar_overlay);	// cinnabar ore
 		oreUBifier.setupUBOre("Thaumcraft:blockCustomOre", 7, UBOreTexturizer.amber2_overlay);	// amber bearing stone
 		oreUBifier.setupUBOre("TYNKYN:carnelianOre", 0, UBOreTexturizer.carnelian_overlay);
 		oreUBifier.setupUBOre("TYNKYN:surfaceOre", 0, UBOreTexturizer.no_overlay);
 		oreUBifier.setupUBOre("TYNKYN:talcOre", 0, UBOreTexturizer.talc_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 0, UBOreTexturizer.tin_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 1, UBOreTexturizer.copper_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 2, UBOreTexturizer.silver_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 3, UBOreTexturizer.lead_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 4, UBOreTexturizer.zinc_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 5, UBOreTexturizer.nickel_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 6, UBOreTexturizer.aluminium_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 7, UBOreTexturizer.magnesite_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 8, UBOreTexturizer.uranium_overlay);
+		oreUBifier.setupUBOre("voltzengine:veStoneOre", 9, UBOreTexturizer.platinum_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 0, UBOreTexturizer.amazonite_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 1, UBOreTexturizer.smokeyquartz_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 2, UBOreTexturizer.gem_onyxblack_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 3, UBOreTexturizer.gem_onyxred_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 4, UBOreTexturizer.olivine_peridot_overlay);	// green_garnet
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 5, UBOreTexturizer.gem_orange_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 6, UBOreTexturizer.ruby_overlay);
+		oreUBifier.setupUBOre("voltzengine:veGemOre", 7, UBOreTexturizer.gem_yellow_overlay);
 		oreUBifier.setupUBOre("wildcaves3:FossilBlock", 0, UBOreTexturizer.fossils_overlay);
 	}
 
