@@ -2,6 +2,8 @@
 package exterminatorJeff.undergroundBiomes.worldGen;
 
 import java.util.Random;
+
+import exterminatorJeff.undergroundBiomes.common.UndergroundBiomes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -51,7 +53,13 @@ public class CorrectedBiomeDecorator extends BiomeDecorator {
         World wasDecorating = currentWorld;
         Random randomizer= this.randomGenerator;
         currentWorld = null;
-        super.decorateChunk(p_150512_1_, p_150512_2_, p_150512_3_, p_150512_4_, p_150512_5_);
+        try {
+        	super.decorateChunk(p_150512_1_, p_150512_2_, p_150512_3_, p_150512_4_, p_150512_5_);
+        } catch(Exception exception) {
+        	UndergroundBiomes.logger.error(String.format("Exception in world %s biomeGenBase %s at %d %d",
+        			p_150512_1_, p_150512_3_, p_150512_4_, p_150512_5_));
+        	throw new RuntimeException(exception);
+        }
         currentWorld = wasDecorating;
         randomGenerator = randomizer;
     }
