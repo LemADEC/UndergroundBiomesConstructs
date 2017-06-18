@@ -74,7 +74,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 
-@Mod(modid = "UndergroundBiomes", name = "Underground Biomes", version = "0.8.13")
+@Mod(modid = "UndergroundBiomes", name = "Underground Biomes", version = "0.8.14")
 
 public class UndergroundBiomes{
     
