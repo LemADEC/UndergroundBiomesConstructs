@@ -173,7 +173,7 @@ public class DimensionManager {
                 if (!includeDimensionIDs.isIncluded(id, excludeDimensionIDs)) continue;
 
                 //serverList[i].getGameRules().setOrCreateGameRule("mobGriefing", "true");
-                logger.info("UB dimension setup "+inChunkGeneration);
+                logger.info(String.format("UB dimension setup DIM%d inChunkGeneration is %s", id, inChunkGeneration));
                 // do nothing if we're not supposed to use inchunk generation in this dimension
                 if (!inChunkGeneration()) return;
                 if (!inChunkGenerationIncludeIDs.isIncluded(id, inChunkGenerationExcludeIDs)) continue;
@@ -251,6 +251,7 @@ public class DimensionManager {
     }
 
     public void redoOres(int x, int z, World world) {
+        if (!includeDimensionIDs.isIncluded(world.provider.dimensionId, excludeDimensionIDs)) return;
     	WorldGenManager worldGenManager = worldGenManager(world.provider.dimensionId);
         worldGenManager.redoOres(x, z, world);
     }
