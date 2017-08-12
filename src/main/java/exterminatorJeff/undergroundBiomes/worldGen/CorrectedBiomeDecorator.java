@@ -50,18 +50,31 @@ public class CorrectedBiomeDecorator extends BiomeDecorator {
     }
     @Override
     public void decorateChunk(World p_150512_1_, Random p_150512_2_, BiomeGenBase p_150512_3_, int p_150512_4_, int p_150512_5_) {
-        World wasDecorating = currentWorld;
-        Random randomizer= this.randomGenerator;
+        final World previous_currentWorld = currentWorld;
+        final Random previous_randomGenerator = randomGenerator;
+        final int previous_chunkX = chunk_X;
+        final int previous_chunkZ = chunk_Z;
         currentWorld = null;
         try {
         	super.decorateChunk(p_150512_1_, p_150512_2_, p_150512_3_, p_150512_4_, p_150512_5_);
+        } catch(NoSuchMethodError noSuchMethodError) {
+            UndergroundBiomes.logger.error(String.format("NoSuchMethodError in world %s biomeGenBase %s at %d %d",
+                                                         p_150512_1_, p_150512_3_, p_150512_4_, p_150512_5_));
+            UndergroundBiomes.logger.error(String.format("NoSuchMethodError message '%s'", noSuchMethodError.getMessage()));
+            UndergroundBiomes.logger.error(String.format("NoSuchMethodError string '%s'", noSuchMethodError.toString()));
+            noSuchMethodError.printStackTrace();
         } catch(Exception exception) {
         	UndergroundBiomes.logger.error(String.format("Exception in world %s biomeGenBase %s at %d %d",
         			p_150512_1_, p_150512_3_, p_150512_4_, p_150512_5_));
-        	throw new RuntimeException(exception);
+            UndergroundBiomes.logger.error(String.format("Exception message '%s'", exception.getMessage()));
+            UndergroundBiomes.logger.error(String.format("Exception string '%s'", exception.toString()));
+            exception.printStackTrace();
+        	// throw new RuntimeException(exception);
         }
-        currentWorld = wasDecorating;
-        randomGenerator = randomizer;
+        currentWorld = previous_currentWorld;
+        randomGenerator = previous_randomGenerator;
+        chunk_X = previous_chunkX;
+        chunk_Z = previous_chunkZ;
     }
 
 }
